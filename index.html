@@ -4,6 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Athul Jos — Cybersecurity</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 
@@ -21,8 +25,8 @@
   --tx:#DCE8DF;
   --txm:#7A8E7D;
   --txd:#3E4E40;
-  --mono:monospace;
-  --sans:sans-serif;
+  --mono:'IBM Plex Mono',monospace;
+  --sans:'Inter',sans-serif;
   --ease:cubic-bezier(.4,0,.2,1);
 }
 
@@ -76,6 +80,15 @@ body::after{
 #boot-log .dim{color:#005A18}
 #boot-log .ok{color:#00FF41;font-weight:600}
 #boot-log .warn{color:#e4b800}
+#boot-cursor{
+  display:inline-block;
+  width:8px;
+  height:1.1em;
+  background:#00FF41;
+  vertical-align:text-bottom;
+  animation:bl 1s step-end infinite;
+}
+@keyframes bl{0%,100%{opacity:1}50%{opacity:0}}
 
 /* ─── NAV ─── */
 nav{
@@ -214,7 +227,7 @@ nav.visible{transform:translateY(0)}
 
 .hero-inner{
   display:grid;
-  grid-template-columns:1fr 360px;
+  grid-template-columns:1fr 300px;
   gap:3rem;
   align-items:center;
 }
@@ -247,7 +260,130 @@ nav.visible{transform:translateY(0)}
   align-self:stretch;
 }
 
-/* ─── THM COMPONENTS ─── */
+/* ─── THM CARD ─── */
+.thm-card{
+  background:var(--s1);
+  border:1px solid var(--bd2);
+  border-radius:10px;
+  overflow:hidden;
+  text-decoration:none;
+  display:block;
+  transition:border-color .25s,transform .25s;
+  position:relative;
+}
+.thm-card::before{
+  content:'';
+  position:absolute;
+  top:0;left:0;right:0;
+  height:2px;
+  background:linear-gradient(90deg,#88cc14,#a8e832);
+}
+.thm-card:hover{
+  border-color:#88cc14;
+  transform:translateY(-3px);
+  box-shadow:0 12px 32px rgba(136,204,20,.08);
+}
+.thm-banner{
+  background:linear-gradient(135deg,#1a2a0d 0%,#0d1a08 100%);
+  padding:1.25rem 1.5rem;
+  display:flex;
+  align-items:center;
+  gap:1rem;
+  border-bottom:1px solid var(--bd);
+}
+.thm-avatar{
+  width:52px;height:52px;
+  border-radius:8px;
+  background:var(--bd2);
+  border:2px solid #88cc14;
+  overflow:hidden;
+  flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--mono);
+  font-size:1.1rem;
+  font-weight:700;
+  color:#88cc14;
+}
+.thm-avatar img{width:100%;height:100%;object-fit:cover}
+.thm-user{flex:1;min-width:0}
+.thm-username{
+  font-family:var(--mono);
+  font-size:.85rem;
+  font-weight:700;
+  color:#d4f0a0;
+  margin-bottom:2px;
+}
+.thm-platform{
+  font-family:var(--mono);
+  font-size:.6rem;
+  color:#6a9e30;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+}
+.thm-badge-pill{
+  font-family:var(--mono);
+  font-size:.55rem;
+  font-weight:700;
+  letter-spacing:.1em;
+  padding:3px 8px;
+  border-radius:3px;
+  background:rgba(136,204,20,.15);
+  color:#88cc14;
+  border:1px solid rgba(136,204,20,.3);
+  text-transform:uppercase;
+}
+.thm-stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:1px;
+  background:var(--bd);
+}
+.thm-stat{
+  background:var(--s1);
+  padding:.9rem .75rem;
+  text-align:center;
+}
+.thm-stat-n{
+  font-family:var(--mono);
+  font-size:1.1rem;
+  font-weight:700;
+  color:#88cc14;
+  line-height:1;
+  margin-bottom:4px;
+}
+.thm-stat-l{
+  font-family:var(--mono);
+  font-size:.55rem;
+  color:var(--txd);
+  letter-spacing:.1em;
+  text-transform:uppercase;
+}
+.thm-footer{
+  padding:.75rem 1.5rem;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+.thm-streak{
+  display:flex;
+  align-items:center;
+  gap:.4rem;
+  font-family:var(--mono);
+  font-size:.65rem;
+  color:var(--txm);
+}
+.thm-streak i{color:#f59e0b;font-size:14px}
+.thm-visit{
+  font-family:var(--mono);
+  font-size:.6rem;
+  color:#6a9e30;
+  display:flex;
+  align-items:center;
+  gap:4px;
+  letter-spacing:.05em;
+}
+.thm-visit i{font-size:12px}
+
 .thm-card-wrap{
   display:flex;
   flex-direction:column;
@@ -264,6 +400,7 @@ nav.visible{transform:translateY(0)}
   align-items:center;
   gap:.5rem;
 }
+.thm-card-label i{color:#88cc14;font-size:14px}
 .thm-visit-link{
   margin-left:auto;
   font-family:var(--mono);
@@ -276,161 +413,22 @@ nav.visible{transform:translateY(0)}
   transition:color .2s;
 }
 .thm-visit-link:hover{color:#88cc14}
-
-.thm-clone-container{
-  background:#111923;
-  border:1px solid #1f2d3d;
-  border-radius:10px;
-  padding:1.5rem;
-  text-decoration:none;
+.thm-iframe-link{
   display:block;
-  transition:border-color .25s, transform .25s;
+  border-radius:10px;
+  overflow:hidden;
+  border:1px solid var(--bd2);
+  transition:border-color .25s,transform .25s;
+  position:relative;
 }
-.thm-clone-container:hover{
+.thm-iframe-link:hover{
   border-color:#88cc14;
   transform:translateY(-3px);
 }
-
-.thm-clone-top{
-  display:flex;
-  align-items:center;
-  gap:1rem;
-  margin-bottom:1.5rem;
-}
-
-.thm-clone-avatar{
-  width:64px;
-  height:64px;
-  border-radius:50%;
-  background:#FF1A1A;
-  border:2px solid #2d3f55;
-  position:relative;
-  overflow:hidden;
-  flex-shrink:0;
-}
-.thm-clone-avatar::before {
-  content: '';
+.thm-iframe-overlay{
   position:absolute;
-  bottom:14px; left:20px;
-  width:24px; height:26px;
-  background:#FFD1A9;
-  border-radius:12px 12px 14px 14px;
-  z-index:2;
-}
-.thm-clone-avatar .v-hair {
-  position:absolute;
-  bottom:24px; left:16px;
-  width:32px; height:20px;
-  background:#3A2312;
-  border-radius:50% 50% 40% 40%;
-  box-shadow: -2px 6px 0 #3A2312, 2px 6px 0 #3A2312, 0 -3px 0 #2A170A;
-  z-index:1;
-}
-.thm-clone-avatar .v-shirt {
-  position:absolute;
-  bottom:-2px; left:14px;
-  width:36px; height:18px;
-  background:#FFFFFF;
-  border-radius:10px 10px 0 0;
-  z-index:3;
-}
-.thm-clone-avatar .v-cap {
-  position:absolute;
-  bottom:30px; left:18px;
-  width:28px; height:15px;
-  background:#EAEAEA;
-  border-radius:14px 14px 0 0;
-  z-index:4;
-}
-.thm-clone-avatar .v-cap-brim {
-  position:absolute;
-  bottom:26px; left:12px;
-  width:26px; height:6px;
-  background:#1E3A8A;
-  border-radius:3px;
-  transform: rotate(-8deg);
-  z-index:5;
-}
-
-.thm-clone-user-info{
-  flex:1;
-  min-width:0;
-}
-.thm-clone-title-row{
-  display:flex;
-  align-items:baseline;
-  gap:0.35rem;
-  margin-bottom:0.35rem;
-}
-.thm-clone-username{
-  font-family:var(--sans);
-  font-size:1.15rem;
-  font-weight:600;
-  color:#ffffff;
-}
-.thm-clone-tag{
-  font-family:var(--mono);
-  font-size:0.75rem;
-  font-weight:500;
-  color:#9eb1c9;
-}
-.thm-clone-level-row{
-  display:flex;
-  align-items:center;
-  gap:0.5rem;
-}
-.thm-clone-level-text{
-  font-family:var(--sans);
-  font-size:0.85rem;
-  color:#9eb1c9;
-  white-space:nowrap;
-}
-.thm-clone-xp-bar-bg{
-  flex:1;
-  height:8px;
-  background:#1a2432;
-  border-radius:4px;
-  position:relative;
-  overflow:hidden;
-}
-.thm-clone-xp-bar-fill{
-  height:100%;
-  width:55%;
-  background:linear-gradient(90deg, #a8eb12, #00e676);
-  border-radius:4px;
-}
-.thm-clone-hex{
-  font-family:var(--mono);
-  font-size:0.9rem;
-  font-weight:700;
-  color:#ffffff;
-  margin-left:auto;
-}
-
-.thm-clone-metrics{
-  display:grid;
-  grid-template-columns:repeat(4, 1fr);
-  border-top:1px solid #1f2d3d;
-  padding-top:1.25rem;
-  text-align:center;
-}
-.thm-clone-metric-item{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:0.4rem;
-}
-.thm-clone-label-fallback{
-  color:#61758c;
-  font-family:var(--mono);
-  font-size:0.6rem;
-  text-transform:uppercase;
-}
-.thm-clone-val{
-  font-family:var(--sans);
-  font-size:0.95rem;
-  font-weight:600;
-  color:#ffffff;
+  inset:0;
+  cursor:pointer;
 }
 
 @media(max-width:900px){
@@ -506,6 +504,15 @@ nav.visible{transform:translateY(0)}
   align-items:flex-start;
   margin-bottom:1.25rem;
 }
+.pcard-icon{
+  width:38px;height:38px;
+  border-radius:6px;
+  background:var(--glow);
+  border:1px solid var(--bd2);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--g);
+  font-size:18px;
+}
 .pcard-lang{
   font-family:var(--mono);
   font-size:10px;
@@ -557,7 +564,19 @@ nav.visible{transform:translateY(0)}
   font-size:.7rem;
   color:var(--g);
   text-decoration:none;
+  display:flex;
+  align-items:center;
+  gap:5px;
+  opacity:.7;
+  transition:opacity .2s;
 }
+.pcard:hover .pcard-link{opacity:1}
+.pcard-arr{
+  color:var(--txd);
+  font-size:18px;
+  transition:transform .2s,color .2s;
+}
+.pcard:hover .pcard-arr{color:var(--g);transform:translateX(4px)}
 
 /* ─── SKILLS ─── */
 .skills-wrap{
@@ -570,7 +589,9 @@ nav.visible{transform:translateY(0)}
   border:1px solid var(--bd);
   border-radius:8px;
   padding:1.5rem;
+  transition:border-color .2s;
 }
+.skill-group:hover{border-color:var(--bd2)}
 .sg-head{
   display:flex;
   align-items:center;
@@ -578,6 +599,16 @@ nav.visible{transform:translateY(0)}
   margin-bottom:1.25rem;
   padding-bottom:1rem;
   border-bottom:1px solid var(--bd);
+}
+.sg-icon{
+  width:32px;height:32px;
+  background:var(--glow);
+  border:1px solid var(--bd2);
+  border-radius:5px;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--g);
+  font-size:16px;
+  flex-shrink:0;
 }
 .sg-title{
   font-family:var(--mono);
@@ -623,9 +654,11 @@ nav.visible{transform:translateY(0)}
   height:100%;
   background:linear-gradient(90deg,var(--gd),var(--g));
   border-radius:2px;
-  width: 0%;
-  transition:width .8s var(--ease);
+  transform:scaleX(0);
+  transform-origin:left;
+  transition:transform .8s var(--ease);
 }
+.ski-fill.animate{transform:scaleX(1)}
 
 /* ─── WRITING ─── */
 .articles{display:flex;flex-direction:column;gap:1px;background:var(--bd);border:1px solid var(--bd);border-radius:8px;overflow:hidden}
@@ -668,6 +701,8 @@ nav.visible{transform:translateY(0)}
   line-height:1.4;
 }
 .art-meta{font-family:var(--mono);font-size:.65rem;color:var(--txd)}
+.art-arr{color:var(--txd);font-size:20px;transition:all .2s}
+.art-row:hover .art-arr{color:var(--g);transform:translateX(4px)}
 
 /* ─── AVAILABILITY ─── */
 .avail{
@@ -692,6 +727,23 @@ nav.visible{transform:translateY(0)}
   background:linear-gradient(90deg,var(--g),transparent);
 }
 .avail-left{display:flex;align-items:center;gap:1rem}
+.pulse{
+  width:10px;height:10px;
+  border-radius:50%;
+  background:var(--g);
+  flex-shrink:0;
+  position:relative;
+}
+.pulse::after{
+  content:'';
+  position:absolute;
+  inset:-4px;
+  border-radius:50%;
+  border:1px solid var(--g);
+  animation:ripple 2s ease-out infinite;
+  opacity:0;
+}
+@keyframes ripple{0%{opacity:.6;transform:scale(.5)}100%{opacity:0;transform:scale(1.8)}}
 .avail-text{font-size:.85rem;color:var(--tx)}
 .avail-text strong{color:var(--g);font-weight:500}
 .avail-sub{font-family:var(--mono);font-size:.65rem;color:var(--txd);margin-top:2px}
@@ -706,7 +758,13 @@ nav.visible{transform:translateY(0)}
   padding:.6rem 1.25rem;
   border-radius:4px;
   text-decoration:none;
+  display:inline-flex;
+  align-items:center;
+  gap:.4rem;
+  transition:all .25s;
+  white-space:nowrap;
 }
+.avail-btn:hover{background:#fff;box-shadow:0 0 20px rgba(0,255,65,.2)}
 
 /* ─── FOOTER ─── */
 footer{
@@ -719,7 +777,8 @@ footer{
   gap:1rem;
 }
 .ft-l,.ft-r{font-family:var(--mono);font-size:.65rem;color:var(--txd)}
-.ft-r a{color:var(--txm);text-decoration:none;margin-left:1rem;}
+.ft-r a{color:var(--txm);text-decoration:none;margin-left:1rem;transition:color .2s}
+.ft-r a:hover{color:var(--g)}
 
 /* ─── MODAL ─── */
 .modal-bg{
@@ -747,8 +806,11 @@ footer{
   padding:2rem;
   max-height:90vh;
   overflow-y:auto;
+  transform:translateY(20px) scale(.97);
+  transition:transform .3s var(--ease);
   position:relative;
 }
+.modal-bg.open .modal{transform:none}
 .modal-close{
   position:absolute;
   top:1rem;right:1rem;
@@ -758,7 +820,11 @@ footer{
   width:28px;height:28px;
   border-radius:4px;
   cursor:pointer;
+  font-size:16px;
+  display:flex;align-items:center;justify-content:center;
+  transition:all .2s;
 }
+.modal-close:hover{background:var(--bd2);color:var(--tx)}
 .modal-label{font-family:var(--mono);font-size:.6rem;color:var(--gd);letter-spacing:.2em;text-transform:uppercase;margin-bottom:.75rem}
 .modal-title{font-family:var(--mono);font-size:1.3rem;font-weight:700;color:var(--tx);margin-bottom:1.25rem}
 .modal-desc{font-size:.85rem;color:var(--txm);line-height:1.8;margin-bottom:1.5rem}
@@ -769,10 +835,10 @@ footer{
 .modal-links{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid var(--bd)}
 
 @media(max-width:640px){
+  .hero-stats{gap:1.25rem}
   .art-row{grid-template-columns:1fr auto;gap:.75rem}
   .art-n{display:none}
   nav .nav-links{display:none}
-  .thm-clone-metrics { grid-template-columns: repeat(2, 1fr); gap: 1rem 0; }
 }
 </style>
 </head>
@@ -794,19 +860,28 @@ footer{
 
 <section id="hero">
   <div class="hero-bg-grid" aria-hidden="true"></div>
-  <div class="hero-eyebrow">CEH v13 Candidate &middot; Kerala, India</div>
+
+  <div class="hero-eyebrow">CEH v13 Candidate · Kerala, India</div>
 
   <div class="hero-inner">
     <div class="hero-left">
-      <h1 class="hero-name">Athul<span class="accent">Jos.</span></h1>
+      <h1 class="hero-name">
+        Athul
+        <span class="accent">Jos.</span>
+      </h1>
+
       <p class="hero-role">
         Aspiring <strong>red teamer</strong> &amp; <strong>pentester</strong>.<br>
         I build offensive tooling, break boxes on HTB/THM.
       </p>
 
       <div class="hero-cta">
-        <a href="https://www.linkedin.com/in/athul-jos-kurian-79379a344/" target="_blank" class="btn btn-primary">Get in touch</a>
-        <a href="#projects" class="btn btn-ghost">View projects</a>
+        <a href="https://www.linkedin.com/in/athul-jos-kurian-79379a344/" target="_blank" class="btn btn-primary">
+          <i class="ti ti-arrow-right" aria-hidden="true"></i>Get in touch
+        </a>
+        <a href="#projects" class="btn btn-ghost">
+          <i class="ti ti-folder" aria-hidden="true"></i>View projects
+        </a>
       </div>
 
       <div class="hero-stats">
@@ -820,53 +895,18 @@ footer{
 
     <div class="thm-card-wrap">
       <div class="thm-card-label">
-        TryHackMe
-        <a href="https://tryhackme.com/p/bl3ak" target="_blank" class="thm-visit-link">bl3ak -></a>
+        <i class="ti ti-device-gamepad-2" aria-hidden="true"></i> TryHackMe
+        <a href="https://tryhackme.com/p/bl3ak" target="_blank" class="thm-visit-link">bl3ak <i class="ti ti-arrow-right" aria-hidden="true"></i></a>
       </div>
-      
-      <a href="https://tryhackme.com/p/bl3ak" target="_blank" class="thm-clone-container">
-        <div class="thm-clone-top">
-          <div class="thm-clone-avatar">
-            <div class="v-avatar-details">
-              <div class="v-hair"></div>
-              <div class="v-shirt"></div>
-              <div class="v-cap"></div>
-              <div class="v-cap-brim"></div>
-            </div>
-          </div>
-          <div class="thm-clone-user-info">
-            <div class="thm-clone-title-row">
-              <span class="thm-clone-username">bl3ak</span>
-              <span class="thm-clone-tag">[MAGE]</span>
-            </div>
-            <div class="thm-clone-level-row">
-              <span class="thm-clone-level-text">Level 9</span>
-              <div class="thm-clone-xp-bar-bg">
-                <div class="thm-clone-xp-bar-fill"></div>
-              </div>
-              <span class="thm-clone-hex">[0x9]</span>
-            </div>
-          </div>
-        </div>
-        
-        <div class="thm-clone-metrics">
-          <div class="thm-clone-metric-item">
-            <span class="thm-clone-label-fallback">RNK</span>
-            <span class="thm-clone-val">107873</span>
-          </div>
-          <div class="thm-clone-metric-item">
-            <span class="thm-clone-label-fallback">PTS</span>
-            <span class="thm-clone-val">9629</span>
-          </div>
-          <div class="thm-clone-metric-item">
-            <span class="thm-clone-label-fallback">RMS</span>
-            <span class="thm-clone-val">74</span>
-          </div>
-          <div class="thm-clone-metric-item">
-            <span class="thm-clone-label-fallback">MDL</span>
-            <span class="thm-clone-val">9</span>
-          </div>
-        </div>
+      <a href="https://tryhackme.com/p/bl3ak" target="_blank" class="thm-iframe-link" id="thm-iframe-wrap">
+        <iframe
+          id="thm-badge-iframe"
+          src="https://tryhackme.com/api/v2/badges/public-profile?userPublicId=686b6f2aaf8eaddc54f98197"
+          title="TryHackMe bl3ak live stats badge"
+          scrolling="no"
+          style="border:none;width:100%;height:160px;display:block;"
+        ></iframe>
+        <div class="thm-iframe-overlay"></div>
       </a>
     </div>
   </div>
@@ -880,13 +920,16 @@ footer{
   </div>
 
   <div class="projects-grid">
+
     <article class="pcard" tabindex="0"
       data-name="file-sniff"
       data-lang="Python"
-      data-desc="Malware triage tool that identifies real file types via magic-byte signatures."
-      data-tags="Magic Numbers,Shannon Entropy,VirusTotal API"
+      data-desc="Malware triage tool that identifies real file types via magic-byte signatures — detects extension spoofing, calculates Shannon entropy to flag packed/encrypted blobs, extracts suspicious strings, and auto-queries VirusTotal for INVESTIGATE verdicts. Designed to slot into IR workflows where analysts need quick triage before sandboxing."
+      data-tags="Magic Numbers,Shannon Entropy,VirusTotal API,Incident Response,Malware Triage"
       data-gh="https://github.com/4thul-505/file-sniff">
+      <div class="card-accent"></div>
       <div class="pcard-top">
+        <div class="pcard-icon"><i class="ti ti-virus-search" aria-hidden="true"></i></div>
         <div class="pcard-lang">Python</div>
       </div>
       <div class="pcard-name">file-sniff</div>
@@ -894,25 +937,64 @@ footer{
       <div class="pcard-tags">
         <span class="ptag">Magic Numbers</span>
         <span class="ptag">Shannon Entropy</span>
+        <span class="ptag">VirusTotal API</span>
+        <span class="ptag">IR / DFIR</span>
+      </div>
+      <div class="pcard-foot">
+        <a class="pcard-link" href="https://github.com/4thul-505/file-sniff" target="_blank"><i class="ti ti-brand-github" aria-hidden="true"></i>4thul-505/file-sniff</a>
+        <i class="ti ti-arrow-right pcard-arr" aria-hidden="true"></i>
       </div>
     </article>
 
     <article class="pcard" tabindex="0"
       data-name="reconstr"
-      data-lang="Python"
-      data-desc="Timeline-driven attack reconstruction engine for Linux auth logs."
-      data-tags="MITRE ATT&CK,Log Forensics"
+      data-lang="Python · JS"
+      data-desc="Timeline-driven attack reconstruction engine for Linux auth logs. Parses raw events, correlates them into attack stages, maps them to MITRE ATT&amp;CK tactics and techniques, then renders an interactive kill-chain graph using vis.js — turning raw /var/log/auth.log into a navigable HTML report that a SOC analyst can hand to a manager."
+      data-tags="MITRE ATT&CK,Log Forensics,Kill Chain,vis.js Graph,SOC / DFIR"
       data-gh="https://github.com/4thul-505/reconstr">
+      <div class="card-accent"></div>
       <div class="pcard-top">
-        <div class="pcard-lang">Python</div>
+        <div class="pcard-icon"><i class="ti ti-timeline" aria-hidden="true"></i></div>
+        <div class="pcard-lang">Python · JS</div>
       </div>
       <div class="pcard-name">reconstr</div>
-      <div class="pcard-desc">Timeline-driven attack reconstruction from Linux auth logs. Maps events to MITRE ATT&amp;CK.</div>
+      <div class="pcard-desc">Timeline-driven attack reconstruction from Linux auth logs. Maps events to MITRE ATT&amp;CK and renders an interactive kill-chain graph.</div>
       <div class="pcard-tags">
         <span class="ptag">MITRE ATT&amp;CK</span>
         <span class="ptag">Log Forensics</span>
+        <span class="ptag">Kill Chain</span>
+        <span class="ptag">SOC / DFIR</span>
+      </div>
+      <div class="pcard-foot">
+        <a class="pcard-link" href="https://github.com/4thul-505/reconstr" target="_blank"><i class="ti ti-brand-github" aria-hidden="true"></i>4thul-505/reconstr</a>
+        <i class="ti ti-arrow-right pcard-arr" aria-hidden="true"></i>
       </div>
     </article>
+
+    <article class="pcard" tabindex="0"
+      data-name="instagram-phishing-sim"
+      data-lang="HTML"
+      data-desc="Phishing simulation replicating Instagram's login flow for security awareness training in controlled lab environments. Demonstrates credential harvesting mechanics, social engineering principles, and how attackers clone legitimate UIs — built to show the attack surface, not enable it."
+      data-tags="Social Engineering,Credential Harvesting,Security Awareness,Red Team Lab"
+      data-gh="https://github.com/4thul-505/instagram-phishing-simulation">
+      <div class="card-accent"></div>
+      <div class="pcard-top">
+        <div class="pcard-icon"><i class="ti ti-fish-hook" aria-hidden="true"></i></div>
+        <div class="pcard-lang">HTML</div>
+      </div>
+      <div class="pcard-name">instagram-phishing-sim</div>
+      <div class="pcard-desc">Phishing simulation for security awareness training. Studies credential harvesting and UI cloning in a controlled lab environment.</div>
+      <div class="pcard-tags">
+        <span class="ptag">Social Engineering</span>
+        <span class="ptag">Security Awareness</span>
+        <span class="ptag">Lab / Research</span>
+      </div>
+      <div class="pcard-foot">
+        <a class="pcard-link" href="https://github.com/4thul-505/instagram-phishing-simulation" target="_blank"><i class="ti ti-brand-github" aria-hidden="true"></i>4thul-505/instagram-phishing-simulation</a>
+        <i class="ti ti-arrow-right pcard-arr" aria-hidden="true"></i>
+      </div>
+    </article>
+
   </div>
 </section>
 
@@ -924,23 +1006,145 @@ footer{
   </div>
 
   <div class="skills-wrap" id="skill-grid">
+
     <div class="skill-group">
-      <div class="sg-head"><span class="sg-title">Tooling</span></div>
+      <div class="sg-head">
+        <div class="sg-icon"><i class="ti ti-world" aria-hidden="true"></i></div>
+        <span class="sg-title">Web</span>
+      </div>
+      <div class="skill-items">
+        <div class="ski"><div class="ski-label"><span class="ski-name">SQLi / XSS</span><span class="ski-lvl">ADV</span></div><div class="ski-bar"><div class="ski-fill" style="--w:.9"></div></div></div>
+        <div class="ski"><div class="ski-label"><span class="ski-name">SSRF / IDOR</span><span class="ski-lvl">ADV</span></div><div class="ski-bar"><div class="ski-fill" style="--w:.85"></div></div></div>
+        <div class="ski"><div class="ski-label"><span class="ski-name">Auth Bypass</span><span class="ski-lvl">ADV</span></div><div class="ski-bar"><div class="ski-fill" style="--w:.8"></div></div></div>
+        <div class="ski"><div class="ski-label"><span class="ski-name">Burp Suite</span><span class="ski-lvl">PRO</span></div><div class="ski-bar"><div class="ski-fill" style="--w:.95"></div></div></div>
+        <div class="ski"><div class="ski-label"><span class="ski-name">ffuf / gobuster</span><span class="ski-lvl">ADV</span></div><div class="ski-bar"><div class="ski-fill" style="--w:.85"></div></div></div>
+      </div>
+    </div>
+
+    <div class="skill-group">
+      <div class="sg-head">
+        <div class="sg-icon"><i class="ti ti-network" aria-hidden="true"></i></div>
+        <span class="sg-title">Network</span>
+      </div>
+      <div class="skill-items">
+        <div class="ski"><div class="ski-label"><span class="ski-name">Nmap / Enum</span><span class="ski-lvl">PRO</span></div><div class="ski-bar"><div class="ski-fill" style="--w:.95"></div></div></div>
+        <div class="ski"><div class="ski-label"><span class="ski-name">Metasploit</span><span class="ski-lvl">ADV</span></div><div class="ski-bar"><div class="ski-fill" style="--w:.82"></div></div></div>
+        <div class="ski"><div class="ski-label"><span class="ski-name">EternalBlue</span><span class="ski-lvl">MED</span></div><div class="ski-bar"><div class="ski-fill" style="--w:.7"></div></div></div>
+        <div class="ski"><div class="ski-label"><span class="ski-name">Pivoting</span><span class="ski-lvl">ADV</span></div><div class="ski-bar"><div class="ski-fill" style="--w:.78"></div></div></div>
+      </div>
+    </div>
+
+    <div class="skill-group">
+      <div class="sg-head">
+        <div class="sg-icon"><i class="ti ti-shield-up" aria-hidden="true"></i></div>
+        <span class="sg-title">Privesc</span>
+      </div>
+      <div class="skill-items">
+        <div class="ski"><div class="ski-label"><span class="ski-name">SUID / GTFOBins</span><span class="ski-lvl">PRO</span></div><div class="ski-bar"><div class="ski-fill" style="--w:.9"></div></div></div>
+        <div class="ski"><div class="ski-label"><span class="ski-name">LXD / Docker Escape</span><span class="ski-lvl">ADV</span></div><div class="ski-bar"><div class="ski-fill" style="--w:.82"></div></div></div>
+        <div class="ski"><div class="ski-label"><span class="ski-name">LFI → RCE</span><span class="ski-lvl">ADV</span></div><div class="ski-bar"><div class="ski-fill" style="--w:.85"></div></div></div>
+        <div class="ski"><div class="ski-label"><span class="ski-name">SSH Key Theft</span><span class="ski-lvl">ADV</span></div><div class="ski-bar"><div class="ski-fill" style="--w:.8"></div></div></div>
+      </div>
+    </div>
+
+    <div class="skill-group">
+      <div class="sg-head">
+        <div class="sg-icon"><i class="ti ti-building" aria-hidden="true"></i></div>
+        <span class="sg-title">Active Directory</span>
+      </div>
+      <div class="skill-items">
+        <div class="ski"><div class="ski-label"><span class="ski-name">Kerberoasting</span><span class="ski-lvl">ADV</span></div><div class="ski-bar"><div class="ski-fill" style="--w:.8"></div></div></div>
+        <div class="ski"><div class="ski-label"><span class="ski-name">Golden Ticket</span><span class="ski-lvl">MED</span></div><div class="ski-bar"><div class="ski-fill" style="--w:.72"></div></div></div>
+        <div class="ski"><div class="ski-label"><span class="ski-name">ADCS ESC1–13</span><span class="ski-lvl">ADV</span></div><div class="ski-bar"><div class="ski-fill" style="--w:.78"></div></div></div>
+        <div class="ski"><div class="ski-label"><span class="ski-name">Shadow Credentials</span><span class="ski-lvl">MED</span></div><div class="ski-bar"><div class="ski-fill" style="--w:.68"></div></div></div>
+      </div>
+    </div>
+
+    <div class="skill-group">
+      <div class="sg-head">
+        <div class="sg-icon"><i class="ti ti-tool" aria-hidden="true"></i></div>
+        <span class="sg-title">Tooling</span>
+      </div>
       <div class="skill-items">
         <div class="ski"><div class="ski-label"><span class="ski-name">Python</span><span class="ski-lvl">PRO</span></div><div class="ski-bar"><div class="ski-fill" style="--w:.92"></div></div></div>
         <div class="ski"><div class="ski-label"><span class="ski-name">Kali Linux</span><span class="ski-lvl">PRO</span></div><div class="ski-bar"><div class="ski-fill" style="--w:.95"></div></div></div>
+        <div class="ski"><div class="ski-label"><span class="ski-name">Ghidra / GDB</span><span class="ski-lvl">MED</span></div><div class="ski-bar"><div class="ski-fill" style="--w:.6"></div></div></div>
+        <div class="ski"><div class="ski-label"><span class="ski-name">CyberChef</span><span class="ski-lvl">ADV</span></div><div class="ski-bar"><div class="ski-fill" style="--w:.88"></div></div></div>
       </div>
     </div>
+
   </div>
 </section>
 
+<section id="writing" class="section">
+  <div class="sec-header">
+    <span class="sec-num">03</span>
+    <span class="sec-title">Writing</span>
+    <div class="sec-line"></div>
+  </div>
+
+  <div class="articles">
+
+    <a href="https://medium.com/@4thul" target="_blank" class="art-row">
+      <div class="art-n">01</div>
+      <div>
+        <div class="art-title">Meta AI Instagram Account Takeover — Confused Deputy &amp; LLM Security</div>
+        <div class="art-meta">OWASP LLM Top 10 · Confused Deputy Pattern · Medium + LinkedIn</div>
+      </div>
+      <i class="ti ti-arrow-right art-arr" aria-hidden="true"></i>
+    </a>
+
+    <a href="https://medium.com/@4thul" target="_blank" class="art-row">
+      <div class="art-n">02</div>
+      <div>
+        <div class="art-title">ShinyHunters — Threat Actor Profile</div>
+        <div class="art-meta">Threat Intelligence · TTP Analysis · First Medium article</div>
+      </div>
+      <i class="ti ti-arrow-right art-arr" aria-hidden="true"></i>
+    </a>
+
+    <a href="https://medium.com/@bl3ak505" target="_blank" class="art-row">
+      <div class="art-n">03</div>
+      <div>
+        <div class="art-title">CTF Writeups &amp; Lab Walkthroughs</div>
+        <div class="art-meta">VulnHub HA:Joker · HTB · TryHackMe Attacktive Directory</div>
+      </div>
+      <i class="ti ti-arrow-right art-arr" aria-hidden="true"></i>
+    </a>
+
+  </div>
+</section>
+
+<div class="avail">
+  <div class="avail-left">
+    <div class="pulse"></div>
+    <div>
+      <div class="avail-text">Open to <strong>internships</strong> and <strong>bug bounty</strong> collaborations</div>
+      <div class="avail-sub">Kerala, India · Remote-friendly</div>
+    </div>
+  </div>
+  <a href="https://www.linkedin.com/in/athul-jos-kurian-79379a344/" target="_blank" class="avail-btn">
+    Contact <i class="ti ti-arrow-right" aria-hidden="true"></i>
+  </a>
+</div>
+
+<footer>
+  <div class="ft-l">© 2026 Athul Jos · 4thul-505</div>
+  <div class="ft-r">
+    <a href="https://github.com/4thul-505" target="_blank">GitHub</a>
+    <a href="https://www.linkedin.com/in/athul-jos-kurian-79379a344/" target="_blank">LinkedIn</a>
+    <a href="https://medium.com/@bl3ak505" target="_blank">Medium</a>
+  </div>
+</footer>
+
 <div class="modal-bg" id="modal-bg" role="dialog" aria-modal="true" aria-labelledby="modal-title">
   <div class="modal">
-    <button class="modal-close" id="modal-close">X</button>
+    <button class="modal-close" id="modal-close" aria-label="Close"><i class="ti ti-x" aria-hidden="true"></i></button>
     <div class="modal-label">Project</div>
     <div class="modal-title" id="modal-title"></div>
     <div class="modal-desc" id="modal-desc"></div>
     <div class="modal-tech">
+      <div class="modal-tech-title">Stack / techniques</div>
       <div class="modal-tags" id="modal-tags"></div>
     </div>
     <div class="modal-links" id="modal-links"></div>
@@ -953,13 +1157,19 @@ const bootLines = [
   ['dim', 'BIOS v2.4.1 · Kali Rolling 2026.1'],
   ['dim', 'Loading kernel modules...'],
   ['ok', '[  OK  ] Started network-online.target'],
-  ['warn', 'root@kali:~# micro /etc/portfolio.conf'],
+  ['ok', '[  OK  ] Reached target Multi-User System'],
+  ['dim', ''],
+  ['ok', 'root@kali:~# whoami'],
+  ['dim', 'athul-jos — red teamer, dfir analyst, tool builder'],
+  ['warn', 'root@kali:~# cat /etc/portfolio.conf'],
+  ['dim', 'EXPERTISE=web,network,privesc,active-directory'],
+  ['dim', 'STATUS=available-for-internships'],
   ['ok', '[  READY  ] Loading portfolio interface...'],
 ];
 
 const bootLog = document.getElementById('boot-log');
 const bootEl = document.getElementById('boot');
-let lineIdx = 0;
+let lineIdx = 0, charIdx = 0;
 
 function printBoot() {
   if (lineIdx >= bootLines.length) {
@@ -997,11 +1207,12 @@ function animateSkills() {
       if (e.isIntersecting) {
         const w = parseFloat(e.target.style.getPropertyValue('--w'));
         e.target.style.width = (w * 100) + '%';
+        e.target.classList.add('animate');
         obs.unobserve(e.target);
       }
     });
   }, { threshold: .1 });
-  bars.forEach(b => { obs.observe(b); });
+  bars.forEach(b => { b.style.width = '0'; obs.observe(b); });
 }
 
 /* ─── PROJECT CARDS & MODAL ─── */
@@ -1013,6 +1224,9 @@ document.querySelectorAll('.pcard').forEach(card => {
     if (e.target.closest('a')) return;
     openModal(card.dataset);
   });
+  card.addEventListener('keydown', e => {
+    if (e.key === 'Enter') openModal(card.dataset);
+  });
 });
 
 function openModal(d) {
@@ -1020,13 +1234,17 @@ function openModal(d) {
   document.getElementById('modal-desc').textContent = d.desc;
   const tags = d.tags.split(',');
   document.getElementById('modal-tags').innerHTML = tags.map(t => `<span class="modal-tag">${t.trim()}</span>`).join('');
-  document.getElementById('modal-links').innerHTML = `<a href="${d.gh}" target="_blank" class="btn btn-ghost">GitHub</a>`;
+  document.getElementById('modal-links').innerHTML = `
+    <a href="${d.gh}" target="_blank" class="btn btn-ghost" style="font-size:.7rem">
+      <i class="ti ti-brand-github" aria-hidden="true"></i>View on GitHub
+    </a>`;
   modalBg.classList.add('open');
   document.body.style.overflow = 'hidden';
 }
 
 modalClose.addEventListener('click', closeModal);
 modalBg.addEventListener('click', e => { if (e.target === modalBg) closeModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
 function closeModal() {
   modalBg.classList.remove('open');
