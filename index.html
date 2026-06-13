@@ -1,750 +1,1063 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Athul Jos | Cybersecurity Portfolio</title>
-  
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
-  
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap');
-
-    /* CSS Variables: The Matrix Palette */
-    :root {
-      --matrix-green: #00FF41;
-      --matrix-dim: #008F11;
-      --matrix-glow: rgba(0, 255, 65, 0.15);
-      
-      --bg-dark: #0A0F0D;
-      --surface-1: #121A14;
-      --surface-2: #1A261D;
-      
-      --border-main: #1A3320;
-      --border-light: #25402B;
-      
-      --text-main: #E0E6E2;
-      --text-muted: #8A9990;
-      --text-dark: #5C665F;
-      
-      --mono: 'Space Mono', monospace;
-      --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: var(--mono);
-      background-color: var(--bg-dark);
-      color: var(--text-main);
-      min-height: 100vh;
-      line-height: 1.6;
-      /* Subtle scanline effect overlay */
-      background-image: linear-gradient(rgba(0, 255, 65, 0.02) 1px, transparent 1px);
-      background-size: 100% 4px;
-    }
-
-    .container {
-      max-width: 900px;
-      margin: 0 auto;
-      background: var(--bg-dark);
-      border-left: 1px solid var(--border-main);
-      border-right: 1px solid var(--border-main);
-      min-height: 100vh;
-      box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
-    }
-
-    /* --- Header / Hero --- */
-    header {
-      padding: 4rem 3rem 3rem;
-      border-bottom: 1px solid var(--border-main);
-      position: relative;
-    }
-
-    header::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 3rem;
-      right: 3rem;
-      height: 1px;
-      background: linear-gradient(90deg, var(--matrix-dim), transparent);
-    }
-
-    .prompt-line {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 2.5rem;
-      font-size: 14px;
-    }
-
-    .prompt-path { color: var(--matrix-green); font-weight: 700; }
-    .prompt-sep { color: var(--text-dark); }
-    .prompt-cmd { color: var(--text-muted); }
-    
-    .cursor {
-      display: inline-block;
-      width: 10px;
-      height: 18px;
-      background: var(--matrix-green);
-      animation: blink 1s step-end infinite;
-      vertical-align: text-bottom;
-    }
-
-    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
-
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 2rem;
-      align-items: start;
-      margin-bottom: 2rem;
-    }
-
-    .hero-name {
-      font-size: clamp(2.5rem, 8vw, 4.5rem);
-      font-weight: 700;
-      line-height: 1;
-      letter-spacing: -2px;
-      margin-bottom: 1rem;
-    }
-
-    .hero-name span { color: var(--matrix-green); }
-
-    .hero-sub {
-      font-size: 12px;
-      color: var(--text-muted);
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      margin-bottom: 1.5rem;
-    }
-
-    .hero-bio {
-      font-size: 13px;
-      color: var(--text-muted);
-      max-width: 500px;
-      border-left: 2px solid var(--matrix-dim);
-      padding-left: 1.25rem;
-    }
-
-    .hero-stats {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      text-align: right;
-    }
-
-    .stat {
-      background: var(--surface-1);
-      border: 1px solid var(--border-main);
-      border-radius: 4px;
-      padding: 0.75rem 1.25rem;
-    }
-
-    .stat-num {
-      font-size: 22px;
-      font-weight: 700;
-      color: var(--matrix-green);
-    }
-
-    .stat-lbl {
-      font-size: 10px;
-      color: var(--text-muted);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      margin-top: 4px;
-    }
-
-    .tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 2rem;
-    }
-
-    .tag {
-      font-size: 11px;
-      padding: 4px 12px;
-      border: 1px solid var(--matrix-dim);
-      color: var(--matrix-green);
-      background: var(--matrix-glow);
-      border-radius: 4px;
-      letter-spacing: 0.05em;
-    }
-
-    .links {
-      display: flex;
-      gap: 1.5rem;
-      flex-wrap: wrap;
-    }
-
-    .lnk {
-      font-size: 13px;
-      color: var(--text-muted);
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      transition: var(--transition);
-    }
-
-    .lnk i { font-size: 18px; }
-    .lnk:hover { color: var(--matrix-green); text-shadow: 0 0 8px var(--matrix-glow); }
-
-    /* --- Sections --- */
-    section { padding: 3rem; }
-    section + section { border-top: 1px solid var(--border-main); }
-
-    .sec-label {
-      font-size: 11px;
-      color: var(--matrix-green);
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      margin-bottom: 2rem;
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-
-    .sec-label::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: var(--border-main);
-    }
-
-    .sec-count {
-      font-size: 10px;
-      background: var(--matrix-dim);
-      color: var(--bg-dark);
-      border-radius: 3px;
-      padding: 2px 8px;
-      font-weight: 700;
-    }
-
-    /* --- Projects Grid --- */
-    .projects {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5rem;
-    }
-
-    /* Interactive Cards */
-    .card, .article-row {
-      background: var(--surface-1);
-      border: 1px solid var(--border-main);
-      border-radius: 8px;
-      cursor: pointer;
-      transition: var(--transition);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .card { padding: 1.5rem; display: flex; flex-direction: column;}
-    
-    .card-accent {
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 2px;
-      background: var(--matrix-green);
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .card:hover, .card:focus-visible {
-      border-color: var(--matrix-green);
-      transform: translateY(-4px);
-      background: var(--surface-2);
-      box-shadow: 0 10px 30px rgba(0, 255, 65, 0.05);
-      outline: none;
-    }
-
-    .card:hover .card-accent, .card:focus-visible .card-accent { transform: scaleX(1); }
-
-    .card-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 1rem;
-    }
-
-    .card-title {
-      font-size: 15px;
-      font-weight: 700;
-      color: var(--text-main);
-    }
-
-    .card-lang {
-      font-size: 10px;
-      color: var(--matrix-green);
-      padding: 3px 8px;
-      border: 1px solid var(--border-light);
-      border-radius: 4px;
-      background: var(--matrix-glow);
-    }
-
-    .card-desc {
-      font-size: 12px;
-      color: var(--text-muted);
-      margin-bottom: 1.5rem;
-      flex-grow: 1;
-    }
-
-    .card-badges {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-bottom: 1.5rem;
-    }
-
-    .badge {
-      font-size: 10px;
-      padding: 3px 8px;
-      background: var(--bg-dark);
-      color: var(--text-muted);
-      border-radius: 4px;
-      border: 1px solid var(--border-main);
-    }
-
-    .card-footer {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding-top: 1rem;
-      border-top: 1px solid var(--border-main);
-    }
-
-    .card-gh {
-      font-size: 12px;
-      color: var(--matrix-green);
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .card-arrow {
-      font-size: 16px;
-      color: var(--text-dark);
-      transition: var(--transition);
-    }
-
-    .card:hover .card-arrow, .card:focus-visible .card-arrow {
-      color: var(--matrix-green);
-      transform: translateX(4px);
-    }
-
-    /* --- Skill Matrix --- */
-    .matrix {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: 1px;
-      background: var(--border-main);
-      border: 1px solid var(--border-main);
-      border-radius: 8px;
-      overflow: hidden;
-    }
-
-    .skill-cell {
-      background: var(--surface-1);
-      padding: 1.25rem;
-      transition: var(--transition);
-    }
-
-    .skill-cell:hover { background: var(--surface-2); }
-
-    .skill-cat {
-      font-size: 11px;
-      color: var(--matrix-green);
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      margin-bottom: 1rem;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .skill-cat i { font-size: 16px; }
-
-    .skill-list {
-      font-size: 12px;
-      color: var(--text-muted);
-      line-height: 2.2;
-    }
-
-    .skill-list span {
-      display: block;
-      position: relative;
-      padding-left: 14px;
-    }
-
-    .skill-list span::before {
-      content: '>';
-      position: absolute;
-      left: 0;
-      color: var(--matrix-dim);
-      font-size: 10px;
-    }
-
-    /* --- Articles --- */
-    .articles {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-
-    .article-row {
-      display: grid;
-      grid-template-columns: 2.5rem 1fr auto;
-      align-items: center;
-      gap: 1.5rem;
-      padding: 1.25rem 1.5rem;
-      text-decoration: none;
-    }
-
-    .article-row:hover, .article-row:focus-visible {
-      border-color: var(--matrix-green);
-      background: var(--surface-2);
-      box-shadow: 0 4px 20px rgba(0, 255, 65, 0.05);
-      outline: none;
-    }
-
-    .art-num { font-size: 12px; color: var(--matrix-dim); font-weight: 700; }
-    
-    .art-title {
-      font-size: 14px;
-      color: var(--text-main);
-      margin-bottom: 4px;
-      font-weight: 700;
-    }
-
-    .art-meta { font-size: 11px; color: var(--text-muted); }
-
-    .art-arrow {
-      font-size: 20px;
-      color: var(--text-dark);
-      transition: var(--transition);
-    }
-
-    .article-row:hover .art-arrow, .article-row:focus-visible .art-arrow {
-      color: var(--matrix-green);
-      transform: translateX(4px);
-    }
-
-    /* --- Availability Banner --- */
-    .avail {
-      margin: 0 3rem 3rem;
-      border: 1px solid var(--matrix-dim);
-      border-radius: 8px;
-      background: var(--matrix-glow);
-      padding: 1.5rem 2rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 1.5rem;
-      box-shadow: inset 0 0 20px rgba(0, 255, 65, 0.05);
-    }
-
-    .avail-left {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-
-    .status-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: var(--matrix-green);
-      animation: pulse 2s ease-in-out infinite;
-      flex-shrink: 0;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; box-shadow: 0 0 0 0 var(--matrix-dim); }
-      50% { opacity: 0.6; box-shadow: 0 0 0 6px transparent; }
-    }
-
-    .avail-text { font-size: 13px; color: var(--text-main); }
-    .avail-text strong { color: var(--matrix-green); }
-
-    .avail-contact {
-      font-size: 12px;
-      color: var(--bg-dark);
-      background: var(--matrix-green);
-      text-decoration: none;
-      padding: 8px 16px;
-      border-radius: 4px;
-      font-weight: 700;
-      transition: var(--transition);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .avail-contact:hover {
-      background: #fff;
-      box-shadow: 0 0 15px var(--matrix-green);
-    }
-
-    /* --- Footer --- */
-    footer {
-      padding: 2rem 3rem;
-      border-top: 1px solid var(--border-main);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 1rem;
-      background: var(--surface-1);
-    }
-
-    .footer-left, .footer-right { font-size: 11px; color: var(--text-dark); }
-    .footer-right span { color: var(--text-muted); }
-
-    /* --- Responsive Adjustments --- */
-    @media (max-width: 600px) {
-      header, section { padding: 2rem; }
-      .avail { margin: 0 2rem 2rem; flex-direction: column; align-items: flex-start; }
-      .hero-grid { grid-template-columns: 1fr; gap: 1.5rem; }
-      .hero-stats { flex-direction: row; text-align: left; }
-      .stat { flex: 1; }
-      .article-row { grid-template-columns: 1fr auto; }
-      .art-num { display: none; }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Athul Jos — Cybersecurity</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --g:#00FF41;
+  --g2:#00C832;
+  --gd:#005A18;
+  --glow:rgba(0,255,65,.12);
+  --bg:#080C09;
+  --s1:#0D1410;
+  --s2:#111A13;
+  --s3:#172019;
+  --bd:#1C2E1F;
+  --bd2:#253524;
+  --tx:#DCE8DF;
+  --txm:#7A8E7D;
+  --txd:#3E4E40;
+  --mono:'IBM Plex Mono',monospace;
+  --sans:'Inter',sans-serif;
+  --ease:cubic-bezier(.4,0,.2,1);
+}
+
+html{scroll-behavior:smooth}
+
+body{
+  font-family:var(--sans);
+  background:var(--bg);
+  color:var(--tx);
+  min-height:100vh;
+  overflow-x:hidden;
+}
+
+/* scanlines */
+body::after{
+  content:'';
+  position:fixed;
+  inset:0;
+  background:repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,0,0,.08) 2px,
+    rgba(0,0,0,.08) 4px
+  );
+  pointer-events:none;
+  z-index:9999;
+}
+
+/* ─── BOOT SCREEN ─── */
+#boot{
+  position:fixed;
+  inset:0;
+  background:#000;
+  z-index:8888;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:flex-start;
+  padding:clamp(2rem,6vw,5rem);
+  transition:opacity .6s var(--ease);
+}
+#boot.out{opacity:0;pointer-events:none}
+#boot-log{
+  font-family:var(--mono);
+  font-size:clamp(11px,1.5vw,14px);
+  color:#00FF41;
+  line-height:2;
+  max-width:680px;
+}
+#boot-log .dim{color:#005A18}
+#boot-log .ok{color:#00FF41;font-weight:600}
+#boot-log .warn{color:#e4b800}
+#boot-cursor{
+  display:inline-block;
+  width:8px;
+  height:1.1em;
+  background:#00FF41;
+  vertical-align:text-bottom;
+  animation:bl 1s step-end infinite;
+}
+@keyframes bl{0%,100%{opacity:1}50%{opacity:0}}
+
+/* ─── NAV ─── */
+nav{
+  position:fixed;
+  top:0;left:0;right:0;
+  z-index:100;
+  padding:.75rem 2rem;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  background:rgba(8,12,9,.85);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--bd);
+  transform:translateY(-100%);
+  transition:transform .5s var(--ease);
+}
+nav.visible{transform:translateY(0)}
+.nav-brand{
+  font-family:var(--mono);
+  font-size:13px;
+  color:var(--g);
+  letter-spacing:.05em;
+}
+.nav-brand span{color:var(--txm)}
+.nav-links{
+  display:flex;
+  gap:1.5rem;
+  list-style:none;
+}
+.nav-links a{
+  font-family:var(--mono);
+  font-size:11px;
+  color:var(--txm);
+  text-decoration:none;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  transition:color .2s;
+}
+.nav-links a:hover{color:var(--g)}
+
+/* ─── HERO ─── */
+#hero{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding:clamp(4rem,10vw,7rem) clamp(1.5rem,6vw,5rem) 4rem;
+  position:relative;
+  overflow:hidden;
+}
+.hero-bg-grid{
+  position:absolute;
+  inset:0;
+  background-image:
+    linear-gradient(var(--glow) 1px,transparent 1px),
+    linear-gradient(90deg,var(--glow) 1px,transparent 1px);
+  background-size:60px 60px;
+  mask-image:radial-gradient(ellipse 70% 70% at 20% 40%,black 20%,transparent 100%);
+  -webkit-mask-image:radial-gradient(ellipse 70% 70% at 20% 40%,black 20%,transparent 100%);
+  pointer-events:none;
+}
+.hero-eyebrow{
+  font-family:var(--mono);
+  font-size:11px;
+  color:var(--g);
+  letter-spacing:.25em;
+  text-transform:uppercase;
+  margin-bottom:1.5rem;
+  display:flex;
+  align-items:center;
+  gap:.75rem;
+}
+.hero-eyebrow::before{
+  content:'';
+  display:block;
+  width:28px;
+  height:1px;
+  background:var(--g);
+}
+.hero-name{
+  font-family:var(--mono);
+  font-size:clamp(3.5rem,11vw,8rem);
+  font-weight:700;
+  line-height:.95;
+  letter-spacing:-.04em;
+  color:var(--tx);
+  margin-bottom:.25rem;
+}
+.hero-name .accent{color:var(--g);display:block}
+.hero-role{
+  font-family:var(--mono);
+  font-size:clamp(.85rem,2vw,1.1rem);
+  color:var(--txm);
+  letter-spacing:.05em;
+  margin-bottom:2.5rem;
+  border-left:3px solid var(--gd);
+  padding-left:1rem;
+  line-height:1.8;
+  max-width:520px;
+}
+.hero-role strong{color:var(--g);font-weight:500}
+.hero-cta{
+  display:flex;
+  gap:1rem;
+  flex-wrap:wrap;
+  margin-bottom:3rem;
+}
+.btn{
+  font-family:var(--mono);
+  font-size:12px;
+  font-weight:600;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  padding:.65rem 1.5rem;
+  border-radius:4px;
+  text-decoration:none;
+  display:inline-flex;
+  align-items:center;
+  gap:.5rem;
+  transition:all .25s var(--ease);
+  cursor:pointer;
+}
+.btn-primary{
+  background:var(--g);
+  color:#000;
+  border:1px solid var(--g);
+}
+.btn-primary:hover{background:#fff;border-color:#fff;box-shadow:0 0 20px rgba(0,255,65,.3)}
+.btn-ghost{
+  background:transparent;
+  color:var(--txm);
+  border:1px solid var(--bd2);
+}
+.btn-ghost:hover{border-color:var(--g);color:var(--g)}
+
+.hero-stats{
+  display:flex;
+  gap:2rem;
+  flex-wrap:wrap;
+}
+.hstat{
+  display:flex;
+  flex-direction:column;
+}
+.hstat-n{
+  font-family:var(--mono);
+  font-size:1.6rem;
+  font-weight:700;
+  color:var(--g);
+  line-height:1;
+}
+.hstat-l{
+  font-size:.6rem;
+  color:var(--txd);
+  letter-spacing:.15em;
+  text-transform:uppercase;
+  margin-top:4px;
+}
+.hero-sep{
+  width:1px;
+  background:var(--bd);
+  align-self:stretch;
+}
+
+/* ─── SECTIONS ─── */
+.section{
+  padding:5rem clamp(1.5rem,6vw,5rem);
+  border-top:1px solid var(--bd);
+}
+.sec-header{
+  display:flex;
+  align-items:center;
+  gap:1.25rem;
+  margin-bottom:3rem;
+}
+.sec-num{
+  font-family:var(--mono);
+  font-size:.65rem;
+  color:var(--gd);
+  letter-spacing:.2em;
+}
+.sec-title{
+  font-family:var(--mono);
+  font-size:.7rem;
+  color:var(--g);
+  letter-spacing:.25em;
+  text-transform:uppercase;
+  font-weight:600;
+}
+.sec-line{
+  flex:1;
+  height:1px;
+  background:var(--bd);
+}
+
+/* ─── PROJECTS ─── */
+.projects-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:1px;
+  background:var(--bd);
+  border:1px solid var(--bd);
+  border-radius:8px;
+  overflow:hidden;
+}
+.pcard{
+  background:var(--s1);
+  padding:2rem;
+  display:flex;
+  flex-direction:column;
+  cursor:pointer;
+  transition:background .2s var(--ease);
+  position:relative;
+}
+.pcard::before{
+  content:'';
+  position:absolute;
+  top:0;left:0;
+  width:100%;height:2px;
+  background:var(--g);
+  transform:scaleX(0);
+  transform-origin:left;
+  transition:transform .35s var(--ease);
+}
+.pcard:hover{background:var(--s2)}
+.pcard:hover::before{transform:scaleX(1)}
+.pcard-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  margin-bottom:1.25rem;
+}
+.pcard-icon{
+  width:38px;height:38px;
+  border-radius:6px;
+  background:var(--glow);
+  border:1px solid var(--bd2);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--g);
+  font-size:18px;
+}
+.pcard-lang{
+  font-family:var(--mono);
+  font-size:10px;
+  color:var(--g);
+  padding:3px 8px;
+  border:1px solid var(--bd2);
+  border-radius:3px;
+  background:var(--glow);
+}
+.pcard-name{
+  font-family:var(--mono);
+  font-size:.95rem;
+  font-weight:700;
+  color:var(--tx);
+  margin-bottom:.5rem;
+}
+.pcard-desc{
+  font-size:.8rem;
+  color:var(--txm);
+  line-height:1.7;
+  flex:1;
+  margin-bottom:1.25rem;
+}
+.pcard-tags{
+  display:flex;
+  flex-wrap:wrap;
+  gap:5px;
+  margin-bottom:1.25rem;
+}
+.ptag{
+  font-family:var(--mono);
+  font-size:.6rem;
+  color:var(--txd);
+  padding:2px 7px;
+  background:var(--bg);
+  border:1px solid var(--bd);
+  border-radius:3px;
+  letter-spacing:.05em;
+}
+.pcard-foot{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding-top:1rem;
+  border-top:1px solid var(--bd);
+}
+.pcard-link{
+  font-family:var(--mono);
+  font-size:.7rem;
+  color:var(--g);
+  text-decoration:none;
+  display:flex;
+  align-items:center;
+  gap:5px;
+  opacity:.7;
+  transition:opacity .2s;
+}
+.pcard:hover .pcard-link{opacity:1}
+.pcard-arr{
+  color:var(--txd);
+  font-size:18px;
+  transition:transform .2s,color .2s;
+}
+.pcard:hover .pcard-arr{color:var(--g);transform:translateX(4px)}
+
+/* ─── SKILLS ─── */
+.skills-wrap{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:1.5rem;
+}
+.skill-group{
+  background:var(--s1);
+  border:1px solid var(--bd);
+  border-radius:8px;
+  padding:1.5rem;
+  transition:border-color .2s;
+}
+.skill-group:hover{border-color:var(--bd2)}
+.sg-head{
+  display:flex;
+  align-items:center;
+  gap:.6rem;
+  margin-bottom:1.25rem;
+  padding-bottom:1rem;
+  border-bottom:1px solid var(--bd);
+}
+.sg-icon{
+  width:32px;height:32px;
+  background:var(--glow);
+  border:1px solid var(--bd2);
+  border-radius:5px;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--g);
+  font-size:16px;
+  flex-shrink:0;
+}
+.sg-title{
+  font-family:var(--mono);
+  font-size:.65rem;
+  color:var(--g);
+  letter-spacing:.15em;
+  text-transform:uppercase;
+  font-weight:600;
+}
+.skill-items{
+  display:flex;
+  flex-direction:column;
+  gap:.6rem;
+}
+.ski{
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+}
+.ski-label{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.ski-name{
+  font-family:var(--mono);
+  font-size:.7rem;
+  color:var(--txm);
+}
+.ski-lvl{
+  font-family:var(--mono);
+  font-size:.55rem;
+  color:var(--gd);
+  letter-spacing:.1em;
+}
+.ski-bar{
+  height:3px;
+  background:var(--bd);
+  border-radius:2px;
+  overflow:hidden;
+}
+.ski-fill{
+  height:100%;
+  background:linear-gradient(90deg,var(--gd),var(--g));
+  border-radius:2px;
+  transform:scaleX(0);
+  transform-origin:left;
+  transition:transform .8s var(--ease);
+}
+.ski-fill.animate{transform:scaleX(1)}
+
+/* ─── WRITING ─── */
+.articles{display:flex;flex-direction:column;gap:1px;background:var(--bd);border:1px solid var(--bd);border-radius:8px;overflow:hidden}
+.art-row{
+  background:var(--s1);
+  padding:1.5rem 2rem;
+  display:grid;
+  grid-template-columns:3rem 1fr auto;
+  align-items:center;
+  gap:1.5rem;
+  text-decoration:none;
+  transition:background .2s;
+  position:relative;
+  overflow:hidden;
+}
+.art-row::before{
+  content:'';
+  position:absolute;
+  left:0;top:0;bottom:0;
+  width:2px;
+  background:var(--g);
+  transform:scaleY(0);
+  transform-origin:top;
+  transition:transform .3s var(--ease);
+}
+.art-row:hover{background:var(--s2)}
+.art-row:hover::before{transform:scaleY(1)}
+.art-n{
+  font-family:var(--mono);
+  font-size:.65rem;
+  color:var(--gd);
+  font-weight:700;
+  letter-spacing:.1em;
+}
+.art-title{
+  font-size:.9rem;
+  font-weight:500;
+  color:var(--tx);
+  margin-bottom:3px;
+  line-height:1.4;
+}
+.art-meta{font-family:var(--mono);font-size:.65rem;color:var(--txd)}
+.art-arr{color:var(--txd);font-size:20px;transition:all .2s}
+.art-row:hover .art-arr{color:var(--g);transform:translateX(4px)}
+
+/* ─── AVAILABILITY ─── */
+.avail{
+  margin:0 clamp(1.5rem,6vw,5rem) 4rem;
+  border:1px solid var(--bd2);
+  border-radius:8px;
+  background:var(--s1);
+  padding:1.75rem 2rem;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:1.5rem;
+  position:relative;
+  overflow:hidden;
+}
+.avail::after{
+  content:'';
+  position:absolute;
+  top:0;left:0;
+  width:60%;height:1px;
+  background:linear-gradient(90deg,var(--g),transparent);
+}
+.avail-left{display:flex;align-items:center;gap:1rem}
+.pulse{
+  width:10px;height:10px;
+  border-radius:50%;
+  background:var(--g);
+  flex-shrink:0;
+  position:relative;
+}
+.pulse::after{
+  content:'';
+  position:absolute;
+  inset:-4px;
+  border-radius:50%;
+  border:1px solid var(--g);
+  animation:ripple 2s ease-out infinite;
+  opacity:0;
+}
+@keyframes ripple{0%{opacity:.6;transform:scale(.5)}100%{opacity:0;transform:scale(1.8)}}
+.avail-text{font-size:.85rem;color:var(--tx)}
+.avail-text strong{color:var(--g);font-weight:500}
+.avail-sub{font-family:var(--mono);font-size:.65rem;color:var(--txd);margin-top:2px}
+.avail-btn{
+  background:var(--g);
+  color:#000;
+  font-family:var(--mono);
+  font-size:.7rem;
+  font-weight:700;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  padding:.6rem 1.25rem;
+  border-radius:4px;
+  text-decoration:none;
+  display:inline-flex;
+  align-items:center;
+  gap:.4rem;
+  transition:all .25s;
+  white-space:nowrap;
+}
+.avail-btn:hover{background:#fff;box-shadow:0 0 20px rgba(0,255,65,.2)}
+
+/* ─── FOOTER ─── */
+footer{
+  border-top:1px solid var(--bd);
+  padding:2rem clamp(1.5rem,6vw,5rem);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:1rem;
+}
+.ft-l,.ft-r{font-family:var(--mono);font-size:.65rem;color:var(--txd)}
+.ft-r a{color:var(--txm);text-decoration:none;margin-left:1rem;transition:color .2s}
+.ft-r a:hover{color:var(--g)}
+
+/* ─── MODAL ─── */
+.modal-bg{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.8);
+  backdrop-filter:blur(6px);
+  -webkit-backdrop-filter:blur(6px);
+  z-index:500;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:1.5rem;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .25s;
+}
+.modal-bg.open{opacity:1;pointer-events:all}
+.modal{
+  background:var(--s2);
+  border:1px solid var(--bd2);
+  border-radius:10px;
+  max-width:560px;
+  width:100%;
+  padding:2rem;
+  max-height:90vh;
+  overflow-y:auto;
+  transform:translateY(20px) scale(.97);
+  transition:transform .3s var(--ease);
+  position:relative;
+}
+.modal-bg.open .modal{transform:none}
+.modal-close{
+  position:absolute;
+  top:1rem;right:1rem;
+  background:var(--bd);
+  border:none;
+  color:var(--txm);
+  width:28px;height:28px;
+  border-radius:4px;
+  cursor:pointer;
+  font-size:16px;
+  display:flex;align-items:center;justify-content:center;
+  transition:all .2s;
+}
+.modal-close:hover{background:var(--bd2);color:var(--tx)}
+.modal-label{font-family:var(--mono);font-size:.6rem;color:var(--gd);letter-spacing:.2em;text-transform:uppercase;margin-bottom:.75rem}
+.modal-title{font-family:var(--mono);font-size:1.3rem;font-weight:700;color:var(--tx);margin-bottom:1.25rem}
+.modal-desc{font-size:.85rem;color:var(--txm);line-height:1.8;margin-bottom:1.5rem}
+.modal-tech{margin-bottom:1.5rem}
+.modal-tech-title{font-family:var(--mono);font-size:.6rem;color:var(--g);letter-spacing:.15em;text-transform:uppercase;margin-bottom:.6rem}
+.modal-tags{display:flex;flex-wrap:wrap;gap:6px}
+.modal-tag{font-family:var(--mono);font-size:.65rem;color:var(--txm);padding:3px 10px;background:var(--bg);border:1px solid var(--bd);border-radius:3px}
+.modal-links{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid var(--bd)}
+
+@media(max-width:640px){
+  .hero-stats{gap:1.25rem}
+  .art-row{grid-template-columns:1fr auto;gap:.75rem}
+  .art-n{display:none}
+  nav .nav-links{display:none}
+}
+</style>
 </head>
 <body>
 
-<main class="container">
+<!-- ─── BOOT ─── -->
+<div id="boot" aria-hidden="true">
+  <div id="boot-log"></div>
+</div>
 
-  <header>
-    <div class="prompt-line">
-      <span class="prompt-path">~/portfolio</span>
-      <span class="prompt-sep">$</span>
-      <span class="prompt-cmd" id="cmd-text"></span>
-      <span class="cursor"></span>
-    </div>
+<!-- ─── NAV ─── -->
+<nav id="nav">
+  <div class="nav-brand">athul<span>@kali</span>:~$</div>
+  <ul class="nav-links">
+    <li><a href="#projects">./projects</a></li>
+    <li><a href="#skills">./skills</a></li>
+    <li><a href="#writing">./writing</a></li>
+    <li><a href="https://github.com/4thul-505" target="_blank">github</a></li>
+  </ul>
+</nav>
 
-    <div class="hero-grid">
-      <div>
-        <div class="hero-name">Athul<br><span>Jos.</span></div>
-        <div class="hero-sub">Cybersecurity · Kerala, India · CEH v13 Candidate</div>
-        <div class="hero-bio">
-          Aspiring red teamer and DFIR analyst with a hands-on focus on offensive tooling and forensic reconstruction. I build tools that solve real triage problems, break things on HTB/THM, and write about what I find.
-        </div>
-      </div>
-      <div class="hero-stats">
-        <div class="stat"><div class="stat-num">3</div><div class="stat-lbl">Projects</div></div>
-        <div class="stat"><div class="stat-num">3</div><div class="stat-lbl">Articles</div></div>
-        <div class="stat"><div class="stat-num">5</div><div class="stat-lbl">Skill areas</div></div>
-      </div>
-    </div>
+<!-- ─── HERO ─── -->
+<section id="hero">
+  <div class="hero-bg-grid" aria-hidden="true"></div>
 
-    <div class="tags">
-      <div class="tag">Red Team</div>
-      <div class="tag">Web Security</div>
-      <div class="tag">CTF</div>
-      <div class="tag">MITRE ATT&CK</div>
-      <div class="tag">HTB · THM</div>
-    </div>
+  <div class="hero-eyebrow">CEH v13 Candidate · Kerala, India</div>
 
-    <div class="links">
-      <a class="lnk" href="https://github.com/4thul-505" target="_blank"><i class="ti ti-brand-github" aria-hidden="true"></i>GitHub</a>
-      <a class="lnk" href="https://www.linkedin.com/in/athul-jos-kurian-79379a344/" target="_blank"><i class="ti ti-brand-linkedin" aria-hidden="true"></i>LinkedIn</a>
-      <a class="lnk" href="https://medium.com/@4thul" target="_blank"><i class="ti ti-pencil" aria-hidden="true"></i>Medium</a>
-    </div>
-  </header>
+  <h1 class="hero-name">
+    Athul
+    <span class="accent">Jos.</span>
+  </h1>
 
-  <section>
-    <div class="sec-label">Projects <span class="sec-count">3</span></div>
-    <div class="projects">
+  <p class="hero-role">
+    Aspiring <strong>red teamer</strong> &amp; <strong>pentester</strong>.<br>
+    I build offensive tooling, break boxes on HTB/THM.
+  </p>
 
-      <article class="card" tabindex="0" onclick="openLink('https://github.com/4thul-505/file-sniff')" onkeydown="handleKey(event, 'https://github.com/4thul-505/file-sniff')">
-        <div class="card-accent"></div>
-        <div class="card-head">
-          <div class="card-title">file-sniff</div>
-          <div class="card-lang">Python</div>
-        </div>
-        <div class="card-desc">Malware triage tool that identifies real file types via magic numbers — detects extension spoofing, calculates Shannon entropy, extracts suspicious strings, and auto-lookups VirusTotal for INVESTIGATE verdicts.</div>
-        <div class="card-badges">
-          <div class="badge">Magic Numbers</div>
-          <div class="badge">Shannon Entropy</div>
-          <div class="badge">VirusTotal API</div>
-          <div class="badge">Incident Response</div>
-        </div>
-        <div class="card-footer">
-          <a class="card-gh" href="https://github.com/4thul-505/file-sniff" target="_blank"><i class="ti ti-brand-github" aria-hidden="true"></i>4thul-505/file-sniff</a>
-          <i class="ti ti-arrow-right card-arrow" aria-hidden="true"></i>
-        </div>
-      </article>
-
-      <article class="card" tabindex="0" onclick="openLink('https://github.com/4thul-505/reconstr')" onkeydown="handleKey(event, 'https://github.com/4thul-505/reconstr')">
-        <div class="card-accent"></div>
-        <div class="card-head">
-          <div class="card-title">reconstr</div>
-          <div class="card-lang">Python · JS</div>
-        </div>
-        <div class="card-desc">Timeline-driven attack reconstruction from Linux auth logs. Parses raw events, correlates them into attack stages, maps to MITRE ATT&CK, and renders an interactive kill-chain graph in HTML.</div>
-        <div class="card-badges">
-          <div class="badge">MITRE ATT&CK</div>
-          <div class="badge">Log Forensics</div>
-          <div class="badge">vis.js Graph</div>
-          <div class="badge">SOC / DFIR</div>
-        </div>
-        <div class="card-footer">
-          <a class="card-gh" href="https://github.com/4thul-505/reconstr" target="_blank"><i class="ti ti-brand-github" aria-hidden="true"></i>4thul-505/reconstr</a>
-          <i class="ti ti-arrow-right card-arrow" aria-hidden="true"></i>
-        </div>
-      </article>
-
-      <article class="card" tabindex="0" onclick="openLink('https://github.com/4thul-505/instagram-phishing-simulation')" onkeydown="handleKey(event, 'https://github.com/4thul-505/instagram-phishing-simulation')">
-        <div class="card-accent"></div>
-        <div class="card-head">
-          <div class="card-title">instagram-phishing-sim</div>
-          <div class="card-lang">HTML</div>
-        </div>
-        <div class="card-desc">Phishing simulation recreating Instagram's login flow for security awareness training. Studies credential harvesting techniques in a controlled lab environment.</div>
-        <div class="card-badges">
-          <div class="badge">Social Engineering</div>
-          <div class="badge">Security Awareness</div>
-          <div class="badge">Lab / Research</div>
-        </div>
-        <div class="card-footer">
-          <a class="card-gh" href="https://github.com/4thul-505/instagram-phishing-simulation" target="_blank"><i class="ti ti-brand-github" aria-hidden="true"></i>4thul-505/instagram-phishing-simulation</a>
-          <i class="ti ti-arrow-right card-arrow" aria-hidden="true"></i>
-        </div>
-      </article>
-
-    </div>
-  </section>
-
-  <section>
-    <div class="sec-label">Skill Matrix</div>
-    <div class="matrix">
-      <div class="skill-cell">
-        <div class="skill-cat"><i class="ti ti-world" aria-hidden="true"></i>Web</div>
-        <div class="skill-list">
-          <span>SQLi / XSS</span><span>SSRF / IDOR</span><span>Auth Bypass</span><span>Burp Suite</span><span>ffuf / gobuster</span>
-        </div>
-      </div>
-      <div class="skill-cell">
-        <div class="skill-cat"><i class="ti ti-topology-star" aria-hidden="true"></i>Network</div>
-        <div class="skill-list">
-          <span>Nmap / Enum</span><span>Metasploit</span><span>EternalBlue</span><span>Pivoting</span><span>OpenVPN</span>
-        </div>
-      </div>
-      <div class="skill-cell">
-        <div class="skill-cat"><i class="ti ti-shield-up" aria-hidden="true"></i>Privesc</div>
-        <div class="skill-list">
-          <span>LXD Escape</span><span>Docker Socket</span><span>SUID / GTFOBins</span><span>LFI → RCE</span><span>SSH Key Theft</span>
-        </div>
-      </div>
-      <div class="skill-cell">
-        <div class="skill-cat"><i class="ti ti-building" aria-hidden="true"></i>Active Dir.</div>
-        <div class="skill-list">
-          <span>Kerberoasting</span><span>Golden Ticket</span><span>ADCS ESC1–8 / ESC13</span><span>Shadow Creds</span><span>Auth Coercion</span>
-        </div>
-      </div>
-      <div class="skill-cell">
-        <div class="skill-cat"><i class="ti ti-tool" aria-hidden="true"></i>Tools</div>
-        <div class="skill-list">
-          <span>Kali Linux</span><span>Python</span><span>Ghidra / GDB</span><span>sqlmap</span><span>CyberChef</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section>
-    <div class="sec-label">Writing <span class="sec-count">3</span></div>
-    <div class="articles">
-
-      <a href="https://medium.com/@4thul" target="_blank" class="article-row" tabindex="0">
-        <div class="art-num">01</div>
-        <div>
-          <div class="art-title">Meta AI Instagram Account Takeover — Confused Deputy & LLM Security</div>
-          <div class="art-meta">OWASP LLM Top 10 · Confused Deputy Pattern · Medium + LinkedIn</div>
-        </div>
-        <i class="ti ti-arrow-right art-arrow" aria-hidden="true"></i>
-      </a>
-
-      <a href="https://medium.com/@4thul" target="_blank" class="article-row" tabindex="0">
-        <div class="art-num">02</div>
-        <div>
-          <div class="art-title">ShinyHunters — Threat Actor Profile</div>
-          <div class="art-meta">Threat Intelligence · TTP Analysis · First Medium article</div>
-        </div>
-        <i class="ti ti-arrow-right art-arrow" aria-hidden="true"></i>
-      </a>
-
-      <a href="https://medium.com/@bl3ak505" target="_blank" class="article-row" tabindex="0">
-        <div class="art-num">03</div>
-        <div>
-          <div class="art-title">CTF Writeups & Lab Walkthroughs</div>
-          <div class="art-meta">VulnHub HA:Joker · HTB · TryHackMe Attacktive Directory</div>
-        </div>
-        <i class="ti ti-arrow-right art-arrow" aria-hidden="true"></i>
-      </a>
-
-    </div>
-  </section>
-
-  <div class="avail">
-    <div class="avail-left">
-      <div class="status-dot"></div>
-      <div class="avail-text">Open to <strong>internships</strong> and <strong>bug bounty</strong> collaborations · Kerala, India</div>
-    </div>
-    <a class="avail-contact" href="https://www.linkedin.com/in/athul-jos-kurian-79379a344/" target="_blank">Get in touch <i class="ti ti-arrow-right" aria-hidden="true" style="font-size:14px; margin-left:2px;"></i></a>
+  <div class="hero-cta">
+    <a href="https://www.linkedin.com/in/athul-jos-kurian-79379a344/" target="_blank" class="btn btn-primary">
+      <i class="ti ti-arrow-right" aria-hidden="true"></i>Get in touch
+    </a>
+    <a href="#projects" class="btn btn-ghost">
+      <i class="ti ti-folder" aria-hidden="true"></i>View projects
+    </a>
   </div>
 
-  <footer>
-    <div class="footer-left">4thul-505</div>
-    <div class="footer-right"><span>Athul Jos</span> · 2026</div>
-  </footer>
+  <div class="hero-stats">
+    <div class="hstat"><span class="hstat-n">3</span><span class="hstat-l">Projects</span></div>
+    <div class="hero-sep"></div>
+    <div class="hstat"><span class="hstat-n">3</span><span class="hstat-l">Articles</span></div>
+    <div class="hero-sep"></div>
+    <div class="hstat"><span class="hstat-n">5</span><span class="hstat-l">Skill areas</span></div>
+    <div class="hero-sep"></div>
+    <div class="hstat"><span class="hstat-n" id="htb-rank">∞</span><span class="hstat-l">HTB · THM</span></div>
+  </div>
+</section>
 
-</main>
+<!-- ─── PROJECTS ─── -->
+<section id="projects" class="section">
+  <div class="sec-header">
+    <span class="sec-num">01</span>
+    <span class="sec-title">Projects</span>
+    <div class="sec-line"></div>
+  </div>
+
+  <div class="projects-grid">
+
+    <article class="pcard" tabindex="0"
+      data-name="file-sniff"
+      data-lang="Python"
+      data-desc="Malware triage tool that identifies real file types via magic-byte signatures — detects extension spoofing, calculates Shannon entropy to flag packed/encrypted blobs, extracts suspicious strings, and auto-queries VirusTotal for INVESTIGATE verdicts. Designed to slot into IR workflows where analysts need quick triage before sandboxing."
+      data-tags="Magic Numbers,Shannon Entropy,VirusTotal API,Incident Response,Malware Triage"
+      data-gh="https://github.com/4thul-505/file-sniff">
+      <div class="card-accent"></div>
+      <div class="pcard-top">
+        <div class="pcard-icon"><i class="ti ti-virus-search" aria-hidden="true"></i></div>
+        <div class="pcard-lang">Python</div>
+      </div>
+      <div class="pcard-name">file-sniff</div>
+      <div class="pcard-desc">Malware triage via magic bytes. Detects extension spoofing, Shannon entropy, extracts IOCs, and auto-queries VirusTotal.</div>
+      <div class="pcard-tags">
+        <span class="ptag">Magic Numbers</span>
+        <span class="ptag">Shannon Entropy</span>
+        <span class="ptag">VirusTotal API</span>
+        <span class="ptag">IR / DFIR</span>
+      </div>
+      <div class="pcard-foot">
+        <a class="pcard-link" href="https://github.com/4thul-505/file-sniff" target="_blank"><i class="ti ti-brand-github" aria-hidden="true"></i>4thul-505/file-sniff</a>
+        <i class="ti ti-arrow-right pcard-arr" aria-hidden="true"></i>
+      </div>
+    </article>
+
+    <article class="pcard" tabindex="0"
+      data-name="reconstr"
+      data-lang="Python · JS"
+      data-desc="Timeline-driven attack reconstruction engine for Linux auth logs. Parses raw events, correlates them into attack stages, maps them to MITRE ATT&amp;CK tactics and techniques, then renders an interactive kill-chain graph using vis.js — turning raw /var/log/auth.log into a navigable HTML report that a SOC analyst can hand to a manager."
+      data-tags="MITRE ATT&CK,Log Forensics,Kill Chain,vis.js Graph,SOC / DFIR"
+      data-gh="https://github.com/4thul-505/reconstr">
+      <div class="card-accent"></div>
+      <div class="pcard-top">
+        <div class="pcard-icon"><i class="ti ti-timeline" aria-hidden="true"></i></div>
+        <div class="pcard-lang">Python · JS</div>
+      </div>
+      <div class="pcard-name">reconstr</div>
+      <div class="pcard-desc">Timeline-driven attack reconstruction from Linux auth logs. Maps events to MITRE ATT&amp;CK and renders an interactive kill-chain graph.</div>
+      <div class="pcard-tags">
+        <span class="ptag">MITRE ATT&amp;CK</span>
+        <span class="ptag">Log Forensics</span>
+        <span class="ptag">Kill Chain</span>
+        <span class="ptag">SOC / DFIR</span>
+      </div>
+      <div class="pcard-foot">
+        <a class="pcard-link" href="https://github.com/4thul-505/reconstr" target="_blank"><i class="ti ti-brand-github" aria-hidden="true"></i>4thul-505/reconstr</a>
+        <i class="ti ti-arrow-right pcard-arr" aria-hidden="true"></i>
+      </div>
+    </article>
+
+    <article class="pcard" tabindex="0"
+      data-name="instagram-phishing-sim"
+      data-lang="HTML"
+      data-desc="Phishing simulation replicating Instagram's login flow for security awareness training in controlled lab environments. Demonstrates credential harvesting mechanics, social engineering principles, and how attackers clone legitimate UIs — built to show the attack surface, not enable it."
+      data-tags="Social Engineering,Credential Harvesting,Security Awareness,Red Team Lab"
+      data-gh="https://github.com/4thul-505/instagram-phishing-simulation">
+      <div class="card-accent"></div>
+      <div class="pcard-top">
+        <div class="pcard-icon"><i class="ti ti-fish-hook" aria-hidden="true"></i></div>
+        <div class="pcard-lang">HTML</div>
+      </div>
+      <div class="pcard-name">instagram-phishing-sim</div>
+      <div class="pcard-desc">Phishing simulation for security awareness training. Studies credential harvesting and UI cloning in a controlled lab environment.</div>
+      <div class="pcard-tags">
+        <span class="ptag">Social Engineering</span>
+        <span class="ptag">Security Awareness</span>
+        <span class="ptag">Lab / Research</span>
+      </div>
+      <div class="pcard-foot">
+        <a class="pcard-link" href="https://github.com/4thul-505/instagram-phishing-simulation" target="_blank"><i class="ti ti-brand-github" aria-hidden="true"></i>4thul-505/instagram-phishing-simulation</a>
+        <i class="ti ti-arrow-right pcard-arr" aria-hidden="true"></i>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- ─── SKILLS ─── -->
+<section id="skills" class="section">
+  <div class="sec-header">
+    <span class="sec-num">02</span>
+    <span class="sec-title">Skill matrix</span>
+    <div class="sec-line"></div>
+  </div>
+
+  <div class="skills-wrap" id="skill-grid">
+
+    <div class="skill-group">
+      <div class="sg-head">
+        <div class="sg-icon"><i class="ti ti-world" aria-hidden="true"></i></div>
+        <span class="sg-title">Web</span>
+      </div>
+      <div class="skill-items">
+        <div class="ski"><div class="ski-label"><span class="ski-name">SQLi / XSS</span><span class="ski-lvl">ADV</span></div><div class="ski-bar"><div class="ski-fill" style="--w:.9"></div></div></div>
+        <div class="ski"><div class="ski-label"><span class="ski-name">SSRF / IDOR</span><span class="ski-lvl">ADV</span></div><div class="ski-bar"><div class="ski-fill" style="--w:.85"></div></div></div>
+        <div class="ski"><div class="ski-label"><span class="ski-name">Auth Bypass</span><span class="ski-lvl">ADV</span></div><div class="ski-bar"><div class="ski-fill" style="--w:.8"></div></div></div>
+        <div class="ski"><div class="ski-label"><span class="ski-name">Burp Suite</span><span class="ski-lvl">PRO</span></div><div class="ski-bar"><div class="ski-fill" style="--w:.95"></div></div></div>
+        <div class="ski"><div class="ski-label"><span class="ski-name">ffuf / gobuster</span><span class="ski-lvl">ADV</span></div><div class="ski-bar"><div class="ski-fill" style="--w:.85"></div></div></div>
+      </div>
+    </div>
+
+    <div class="skill-group">
+      <div class="sg-head">
+        <div class="sg-icon"><i class="ti ti-network" aria-hidden="true"></i></div>
+        <span class="sg-title">Network</span>
+      </div>
+      <div class="skill-items">
+        <div class="ski"><div class="ski-label"><span class="ski-name">Nmap / Enum</span><span class="ski-lvl">PRO</span></div><div class="ski-bar"><div class="ski-fill" style="--w:.95"></div></div></div>
+        <div class="ski"><div class="ski-label"><span class="ski-name">Metasploit</span><span class="ski-lvl">ADV</span></div><div class="ski-bar"><div class="ski-fill" style="--w:.82"></div></div></div>
+        <div class="ski"><div class="ski-label"><span class="ski-name">EternalBlue</span><span class="ski-lvl">MED</span></div><div class="ski-bar"><div class="ski-fill" style="--w:.7"></div></div></div>
+        <div class="ski"><div class="ski-label"><span class="ski-name">Pivoting</span><span class="ski-lvl">ADV</span></div><div class="ski-bar"><div class="ski-fill" style="--w:.78"></div></div></div>
+      </div>
+    </div>
+
+    <div class="skill-group">
+      <div class="sg-head">
+        <div class="sg-icon"><i class="ti ti-shield-up" aria-hidden="true"></i></div>
+        <span class="sg-title">Privesc</span>
+      </div>
+      <div class="skill-items">
+        <div class="ski"><div class="ski-label"><span class="ski-name">SUID / GTFOBins</span><span class="ski-lvl">PRO</span></div><div class="ski-bar"><div class="ski-fill" style="--w:.9"></div></div></div>
+        <div class="ski"><div class="ski-label"><span class="ski-name">LXD / Docker Escape</span><span class="ski-lvl">ADV</span></div><div class="ski-bar"><div class="ski-fill" style="--w:.82"></div></div></div>
+        <div class="ski"><div class="ski-label"><span class="ski-name">LFI → RCE</span><span class="ski-lvl">ADV</span></div><div class="ski-bar"><div class="ski-fill" style="--w:.85"></div></div></div>
+        <div class="ski"><div class="ski-label"><span class="ski-name">SSH Key Theft</span><span class="ski-lvl">ADV</span></div><div class="ski-bar"><div class="ski-fill" style="--w:.8"></div></div></div>
+      </div>
+    </div>
+
+    <div class="skill-group">
+      <div class="sg-head">
+        <div class="sg-icon"><i class="ti ti-building" aria-hidden="true"></i></div>
+        <span class="sg-title">Active Directory</span>
+      </div>
+      <div class="skill-items">
+        <div class="ski"><div class="ski-label"><span class="ski-name">Kerberoasting</span><span class="ski-lvl">ADV</span></div><div class="ski-bar"><div class="ski-fill" style="--w:.8"></div></div></div>
+        <div class="ski"><div class="ski-label"><span class="ski-name">Golden Ticket</span><span class="ski-lvl">MED</span></div><div class="ski-bar"><div class="ski-fill" style="--w:.72"></div></div></div>
+        <div class="ski"><div class="ski-label"><span class="ski-name">ADCS ESC1–13</span><span class="ski-lvl">ADV</span></div><div class="ski-bar"><div class="ski-fill" style="--w:.78"></div></div></div>
+        <div class="ski"><div class="ski-label"><span class="ski-name">Shadow Credentials</span><span class="ski-lvl">MED</span></div><div class="ski-bar"><div class="ski-fill" style="--w:.68"></div></div></div>
+      </div>
+    </div>
+
+    <div class="skill-group">
+      <div class="sg-head">
+        <div class="sg-icon"><i class="ti ti-tool" aria-hidden="true"></i></div>
+        <span class="sg-title">Tooling</span>
+      </div>
+      <div class="skill-items">
+        <div class="ski"><div class="ski-label"><span class="ski-name">Python</span><span class="ski-lvl">PRO</span></div><div class="ski-bar"><div class="ski-fill" style="--w:.92"></div></div></div>
+        <div class="ski"><div class="ski-label"><span class="ski-name">Kali Linux</span><span class="ski-lvl">PRO</span></div><div class="ski-bar"><div class="ski-fill" style="--w:.95"></div></div></div>
+        <div class="ski"><div class="ski-label"><span class="ski-name">Ghidra / GDB</span><span class="ski-lvl">MED</span></div><div class="ski-bar"><div class="ski-fill" style="--w:.6"></div></div></div>
+        <div class="ski"><div class="ski-label"><span class="ski-name">CyberChef</span><span class="ski-lvl">ADV</span></div><div class="ski-bar"><div class="ski-fill" style="--w:.88"></div></div></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─── WRITING ─── -->
+<section id="writing" class="section">
+  <div class="sec-header">
+    <span class="sec-num">03</span>
+    <span class="sec-title">Writing</span>
+    <div class="sec-line"></div>
+  </div>
+
+  <div class="articles">
+
+    <a href="https://medium.com/@4thul" target="_blank" class="art-row">
+      <div class="art-n">01</div>
+      <div>
+        <div class="art-title">Meta AI Instagram Account Takeover — Confused Deputy &amp; LLM Security</div>
+        <div class="art-meta">OWASP LLM Top 10 · Confused Deputy Pattern · Medium + LinkedIn</div>
+      </div>
+      <i class="ti ti-arrow-right art-arr" aria-hidden="true"></i>
+    </a>
+
+    <a href="https://medium.com/@4thul" target="_blank" class="art-row">
+      <div class="art-n">02</div>
+      <div>
+        <div class="art-title">ShinyHunters — Threat Actor Profile</div>
+        <div class="art-meta">Threat Intelligence · TTP Analysis · First Medium article</div>
+      </div>
+      <i class="ti ti-arrow-right art-arr" aria-hidden="true"></i>
+    </a>
+
+    <a href="https://medium.com/@bl3ak505" target="_blank" class="art-row">
+      <div class="art-n">03</div>
+      <div>
+        <div class="art-title">CTF Writeups &amp; Lab Walkthroughs</div>
+        <div class="art-meta">VulnHub HA:Joker · HTB · TryHackMe Attacktive Directory</div>
+      </div>
+      <i class="ti ti-arrow-right art-arr" aria-hidden="true"></i>
+    </a>
+
+  </div>
+</section>
+
+<!-- ─── AVAILABILITY ─── -->
+<div class="avail">
+  <div class="avail-left">
+    <div class="pulse"></div>
+    <div>
+      <div class="avail-text">Open to <strong>internships</strong> and <strong>bug bounty</strong> collaborations</div>
+      <div class="avail-sub">Kerala, India · Remote-friendly</div>
+    </div>
+  </div>
+  <a href="https://www.linkedin.com/in/athul-jos-kurian-79379a344/" target="_blank" class="avail-btn">
+    Contact <i class="ti ti-arrow-right" aria-hidden="true"></i>
+  </a>
+</div>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <div class="ft-l">© 2026 Athul Jos · 4thul-505</div>
+  <div class="ft-r">
+    <a href="https://github.com/4thul-505" target="_blank">GitHub</a>
+    <a href="https://www.linkedin.com/in/athul-jos-kurian-79379a344/" target="_blank">LinkedIn</a>
+    <a href="https://medium.com/@4thul" target="_blank">Medium</a>
+  </div>
+</footer>
+
+<!-- ─── PROJECT MODAL ─── -->
+<div class="modal-bg" id="modal-bg" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  <div class="modal">
+    <button class="modal-close" id="modal-close" aria-label="Close"><i class="ti ti-x" aria-hidden="true"></i></button>
+    <div class="modal-label">Project</div>
+    <div class="modal-title" id="modal-title"></div>
+    <div class="modal-desc" id="modal-desc"></div>
+    <div class="modal-tech">
+      <div class="modal-tech-title">Stack / techniques</div>
+      <div class="modal-tags" id="modal-tags"></div>
+    </div>
+    <div class="modal-links" id="modal-links"></div>
+  </div>
+</div>
 
 <script>
-  // 1. Navigation Functions
-  function openLink(url) {
-    if (url) {
-      window.open(url, '_blank');
-    }
+/* ─── BOOT SEQUENCE ─── */
+const bootLines = [
+  ['dim', 'BIOS v2.4.1 · Kali Rolling 2026.1'],
+  ['dim', 'Loading kernel modules...'],
+  ['ok', '[  OK  ] Started network-online.target'],
+  ['ok', '[  OK  ] Reached target Multi-User System'],
+  ['dim', ''],
+  ['ok', 'root@kali:~# whoami'],
+  ['dim', 'athul-jos — red teamer, dfir analyst, tool builder'],
+  ['warn', 'root@kali:~# cat /etc/portfolio.conf'],
+  ['dim', 'EXPERTISE=web,network,privesc,active-directory'],
+  ['dim', 'STATUS=available-for-internships'],
+  ['ok', '[  READY  ] Loading portfolio interface...'],
+];
+
+const bootLog = document.getElementById('boot-log');
+const bootEl = document.getElementById('boot');
+let lineIdx = 0, charIdx = 0;
+
+function printBoot() {
+  if (lineIdx >= bootLines.length) {
+    setTimeout(() => {
+      bootEl.classList.add('out');
+      document.getElementById('nav').classList.add('visible');
+      setTimeout(() => { bootEl.style.display = 'none'; }, 700);
+      animateSkills();
+    }, 300);
+    return;
   }
+  const [cls, text] = bootLines[lineIdx];
+  const line = document.createElement('div');
+  line.className = cls;
+  line.textContent = text;
+  bootLog.appendChild(line);
+  lineIdx++;
+  setTimeout(printBoot, 40);
+}
 
-  function handleKey(event, url) {
-    if (event.key === 'Enter' || event.key === ' ') {
-      event.preventDefault();
-      openLink(url);
-    }
-  }
+setTimeout(printBoot, 80);
 
-  // 2. Typewriter Effect for the Terminal Prompt
-  document.addEventListener('DOMContentLoaded', () => {
-    const commandText = "whoami && cat about.txt";
-    const commandElement = document.getElementById('cmd-text');
-    let i = 0;
-    const typingSpeed = 60; // milliseconds per character
+/* ─── NAV scroll ─── */
+window.addEventListener('scroll', () => {
+  const nav = document.getElementById('nav');
+  if (window.scrollY > 80) nav.classList.add('visible');
+  else if (document.getElementById('boot').style.display === 'none') nav.classList.add('visible');
+});
 
-    function typeWriter() {
-      if (i < commandText.length) {
-        commandElement.textContent += commandText.charAt(i);
-        i++;
-        setTimeout(typeWriter, typingSpeed);
+/* ─── SKILL BAR ANIMATION ─── */
+function animateSkills() {
+  const bars = document.querySelectorAll('.ski-fill');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const w = parseFloat(e.target.style.getPropertyValue('--w'));
+        e.target.style.width = (w * 100) + '%';
+        e.target.classList.add('animate');
+        obs.unobserve(e.target);
       }
-    }
+    });
+  }, { threshold: .1 });
+  bars.forEach(b => { b.style.width = '0'; obs.observe(b); });
+}
 
-    // Start typing after a short delay
-    setTimeout(typeWriter, 400);
+/* ─── PROJECT CARDS & MODAL ─── */
+const modalBg = document.getElementById('modal-bg');
+const modalClose = document.getElementById('modal-close');
+
+document.querySelectorAll('.pcard').forEach(card => {
+  card.addEventListener('click', (e) => {
+    if (e.target.closest('a')) return;
+    openModal(card.dataset);
   });
-</script>
+  card.addEventListener('keydown', e => {
+    if (e.key === 'Enter') openModal(card.dataset);
+  });
+});
 
+function openModal(d) {
+  document.getElementById('modal-title').textContent = d.name;
+  document.getElementById('modal-desc').textContent = d.desc;
+  const tags = d.tags.split(',');
+  document.getElementById('modal-tags').innerHTML = tags.map(t => `<span class="modal-tag">${t.trim()}</span>`).join('');
+  document.getElementById('modal-links').innerHTML = `
+    <a href="${d.gh}" target="_blank" class="btn btn-ghost" style="font-size:.7rem">
+      <i class="ti ti-brand-github" aria-hidden="true"></i>View on GitHub
+    </a>`;
+  modalBg.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+modalClose.addEventListener('click', closeModal);
+modalBg.addEventListener('click', e => { if (e.target === modalBg) closeModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+function closeModal() {
+  modalBg.classList.remove('open');
+  document.body.style.overflow = '';
+}
+</script>
 </body>
 </html>
