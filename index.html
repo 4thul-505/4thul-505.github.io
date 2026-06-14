@@ -260,130 +260,7 @@ nav.visible{transform:translateY(0)}
   align-self:stretch;
 }
 
-/* ─── THM CARD ─── */
-.thm-card{
-  background:var(--s1);
-  border:1px solid var(--bd2);
-  border-radius:10px;
-  overflow:hidden;
-  text-decoration:none;
-  display:block;
-  transition:border-color .25s,transform .25s;
-  position:relative;
-}
-.thm-card::before{
-  content:'';
-  position:absolute;
-  top:0;left:0;right:0;
-  height:2px;
-  background:linear-gradient(90deg,#88cc14,#a8e832);
-}
-.thm-card:hover{
-  border-color:#88cc14;
-  transform:translateY(-3px);
-  box-shadow:0 12px 32px rgba(136,204,20,.08);
-}
-.thm-banner{
-  background:linear-gradient(135deg,#1a2a0d 0%,#0d1a08 100%);
-  padding:1.25rem 1.5rem;
-  display:flex;
-  align-items:center;
-  gap:1rem;
-  border-bottom:1px solid var(--bd);
-}
-.thm-avatar{
-  width:52px;height:52px;
-  border-radius:8px;
-  background:var(--bd2);
-  border:2px solid #88cc14;
-  overflow:hidden;
-  flex-shrink:0;
-  display:flex;align-items:center;justify-content:center;
-  font-family:var(--mono);
-  font-size:1.1rem;
-  font-weight:700;
-  color:#88cc14;
-}
-.thm-avatar img{width:100%;height:100%;object-fit:cover}
-.thm-user{flex:1;min-width:0}
-.thm-username{
-  font-family:var(--mono);
-  font-size:.85rem;
-  font-weight:700;
-  color:#d4f0a0;
-  margin-bottom:2px;
-}
-.thm-platform{
-  font-family:var(--mono);
-  font-size:.6rem;
-  color:#6a9e30;
-  letter-spacing:.12em;
-  text-transform:uppercase;
-}
-.thm-badge-pill{
-  font-family:var(--mono);
-  font-size:.55rem;
-  font-weight:700;
-  letter-spacing:.1em;
-  padding:3px 8px;
-  border-radius:3px;
-  background:rgba(136,204,20,.15);
-  color:#88cc14;
-  border:1px solid rgba(136,204,20,.3);
-  text-transform:uppercase;
-}
-.thm-stats{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:1px;
-  background:var(--bd);
-}
-.thm-stat{
-  background:var(--s1);
-  padding:.9rem .75rem;
-  text-align:center;
-}
-.thm-stat-n{
-  font-family:var(--mono);
-  font-size:1.1rem;
-  font-weight:700;
-  color:#88cc14;
-  line-height:1;
-  margin-bottom:4px;
-}
-.thm-stat-l{
-  font-family:var(--mono);
-  font-size:.55rem;
-  color:var(--txd);
-  letter-spacing:.1em;
-  text-transform:uppercase;
-}
-.thm-footer{
-  padding:.75rem 1.5rem;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-}
-.thm-streak{
-  display:flex;
-  align-items:center;
-  gap:.4rem;
-  font-family:var(--mono);
-  font-size:.65rem;
-  color:var(--txm);
-}
-.thm-streak i{color:#f59e0b;font-size:14px}
-.thm-visit{
-  font-family:var(--mono);
-  font-size:.6rem;
-  color:#6a9e30;
-  display:flex;
-  align-items:center;
-  gap:4px;
-  letter-spacing:.05em;
-}
-.thm-visit i{font-size:12px}
-
+/* ─── THM CLONE CARD CONTAINER ─── */
 .thm-card-wrap{
   display:flex;
   flex-direction:column;
@@ -401,34 +278,20 @@ nav.visible{transform:translateY(0)}
   gap:.5rem;
 }
 .thm-card-label i{color:#88cc14;font-size:14px}
-.thm-visit-link{
-  margin-left:auto;
-  font-family:var(--mono);
-  font-size:.6rem;
-  color:#6a9e30;
-  text-decoration:none;
-  display:flex;
-  align-items:center;
-  gap:3px;
-  transition:color .2s;
-}
-.thm-visit-link:hover{color:#88cc14}
-.thm-iframe-link{
-  display:block;
+
+.thm-native-card{
+  background:#101622 !important;
+  border:1px solid #1e293b !important;
   border-radius:10px;
-  overflow:hidden;
-  border:1px solid var(--bd2);
-  transition:border-color .25s,transform .25s;
-  position:relative;
+  padding:1.5rem;
+  display:block;
+  text-decoration:none;
+  transition:border-color .25s, transform .25s;
 }
-.thm-iframe-link:hover{
-  border-color:#88cc14;
+.thm-native-card:hover{
+  border-color:#334155 !important;
   transform:translateY(-3px);
-}
-.thm-iframe-overlay{
-  position:absolute;
-  inset:0;
-  cursor:pointer;
+  box-shadow:0 12px 32px rgba(0,0,0,.4);
 }
 
 @media(max-width:900px){
@@ -895,18 +758,52 @@ footer{
 
     <div class="thm-card-wrap">
       <div class="thm-card-label">
-        <i class="ti ti-device-gamepad-2" aria-hidden="true"></i> TryHackMe
-        <a href="https://tryhackme.com/p/bl3ak" target="_blank" class="thm-visit-link">bl3ak <i class="ti ti-arrow-right" aria-hidden="true"></i></a>
+        <i class="ti ti-device-gamepad-2" aria-hidden="true"></i> TryHackMe Profile
       </div>
-      <a href="https://tryhackme.com/p/bl3ak" target="_blank" class="thm-iframe-link" id="thm-iframe-wrap">
-        <iframe
-          id="thm-badge-iframe"
-          src="https://tryhackme.com/api/v2/badges/public-profile?userPublicId=686b6f2aaf8eaddc54f98197"
-          title="TryHackMe bl3ak live stats badge"
-          scrolling="no"
-          style="border:none;width:100%;height:160px;display:block;"
-        ></iframe>
-        <div class="thm-iframe-overlay"></div>
+      <a href="https://tryhackme.com/p/bl3ak" target="_blank" class="thm-native-card">
+        
+        <div style="display:flex; align-items:center; gap:1rem; margin-bottom:1.5rem;">
+          <div style="width:56px; height:56px; border-radius:50%; background:#ff1a1a; display:flex; align-items:center; justify-content:center; flex-shrink:0; border:1px solid #ff4d4d; box-shadow:0 0 12px rgba(255,26,26,0.2);">
+            <i class="ti ti-user" style="color:#fff; font-size:26px;"></i>
+          </div>
+          <div style="flex:1; min-width:0;">
+            <div style="font-family:var(--sans); font-size:1.15rem; font-weight:600; color:#fff; display:flex; align-items:center; gap:0.4rem; white-space:nowrap;">
+              bl3ak <span style="color:#64748b; font-size:0.85rem; font-weight:500; letter-spacing:0.05em;">[MAGE]</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:0.5rem; margin-top:5px; font-family:var(--sans); font-size:0.8rem; color:#94a3b8;">
+              <span>Level 9</span>
+              <div style="flex:1; max-width:90px; height:6px; background:#1e293b; border-radius:3px; overflow:hidden;">
+                <div style="width:55%; height:100%; background:linear-gradient(90deg, #a3e635, #22c55e); border-radius:3px;"></div>
+              </div>
+              <span style="font-family:var(--mono); color:#fff; font-weight:600; font-size:0.75rem;">[0x9]</span>
+            </div>
+          </div>
+          <span style="align-self:flex-start; font-family:var(--mono); font-size:0.55rem; font-weight:700; background:rgba(136,204,20,0.12); color:#a8e832; border:1px solid rgba(136,204,20,0.25); padding:2px 6px; border-radius:3px; text-transform:uppercase; letter-spacing:0.05em;">Top 5%</span>
+        </div>
+
+        <div style="display:grid; grid-template-columns:repeat(5, 1fr); text-align:center; padding-top:1.1rem; border-top:1px solid #1e293b;">
+          <div>
+            <i class="ti ti-flame" style="color:#64748b; font-size:18px; display:block; margin-bottom:6px;"></i>
+            <span style="font-family:var(--mono); font-size:0.85rem; font-weight:700; color:#fff;">1</span>
+          </div>
+          <div>
+            <i class="ti ti-trophy" style="color:#64748b; font-size:18px; display:block; margin-bottom:6px;"></i>
+            <span style="font-family:var(--mono); font-size:0.85rem; font-weight:700; color:#fff;">107873</span>
+          </div>
+          <div>
+            <i class="ti ti-target" style="color:#64748b; font-size:18px; display:block; margin-bottom:6px;"></i>
+            <span style="font-family:var(--mono); font-size:0.85rem; font-weight:700; color:#fff;">9629</span>
+          </div>
+          <div>
+            <i class="ti ti-door" style="color:#64748b; font-size:18px; display:block; margin-bottom:6px;"></i>
+            <span style="font-family:var(--mono); font-size:0.85rem; font-weight:700; color:#fff;">74</span>
+          </div>
+          <div>
+            <i class="ti ti-award" style="color:#64748b; font-size:18px; display:block; margin-bottom:6px;"></i>
+            <span style="font-family:var(--mono); font-size:0.85rem; font-weight:700; color:#fff;">9</span>
+          </div>
+        </div>
+
       </a>
     </div>
   </div>
