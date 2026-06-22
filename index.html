@@ -434,7 +434,7 @@ nav.scrolled {
 /* ─── SKILLS ─── */
 .skills-wrap{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
   gap:2rem;
 }
 .skill-group{
@@ -828,6 +828,7 @@ footer{
   </div>
 
   <div class="skills-wrap" id="skill-grid">
+    <!-- Web Exploitation -->
     <div class="skill-group">
       <div class="sg-head">
         <i class="ti ti-world sg-icon"></i>
@@ -842,6 +843,7 @@ footer{
       </div>
     </div>
 
+    <!-- Network & Infrastructure -->
     <div class="skill-group">
       <div class="sg-head">
         <i class="ti ti-network sg-icon"></i>
@@ -855,6 +857,7 @@ footer{
       </div>
     </div>
 
+    <!-- Privilege Escalation -->
     <div class="skill-group">
       <div class="sg-head">
         <i class="ti ti-shield-up sg-icon"></i>
@@ -868,19 +871,21 @@ footer{
       </div>
     </div>
 
+    <!-- Active Directory -->
     <div class="skill-group">
       <div class="sg-head">
         <i class="ti ti-building sg-icon"></i>
         <span class="sg-title">Active Directory</span>
       </div>
       <div class="skill-items">
-        <div class="ski"><div class="ski-label"><span class="ski-name">Kerberoasting</span></div><div class="ski-bar"><div class="ski-fill" style="--w: 0.20;"></div></div></div>
-        <div class="ski"><div class="ski-label"><span class="ski-name">Golden Ticket</span></div><div class="ski-bar"><div class="ski-fill" style="--w: 0.22;"></div></div></div>
-        <div class="ski"><div class="ski-label"><span class="ski-name">ADCS ESC1–13</span></div><div class="ski-bar"><div class="ski-fill" style="--w: 0.18;"></div></div></div>
-        <div class="ski"><div class="ski-label"><span class="ski-name">Shadow Credentials</span></div><div class="ski-bar"><div class="ski-fill" style="--w: 0.15;"></div></div></div>
+        <div class="ski"><div class="ski-label"><span class="ski-name">Kerberoasting</span></div><div class="ski-bar"><div class="ski-fill" style="--w: 0;"></div></div></div>
+        <div class="ski"><div class="ski-label"><span class="ski-name">Golden Ticket</span></div><div class="ski-bar"><div class="ski-fill" style="--w: 0;"></div></div></div>
+        <div class="ski"><div class="ski-label"><span class="ski-name">ADCS ESC1–13</span></div><div class="ski-bar"><div class="ski-fill" style="--w: 0;"></div></div></div>
+        <div class="ski"><div class="ski-label"><span class="ski-name">Shadow Credentials</span></div><div class="ski-bar"><div class="ski-fill" style="--w: 0;"></div></div></div>
       </div>
     </div>
     
+    <!-- Tooling -->
     <div class="skill-group">
       <div class="sg-head">
         <i class="ti ti-tool sg-icon"></i>
@@ -1152,4 +1157,3 @@ function closeModal() {
 </script>
 </body>
 </html>
-
